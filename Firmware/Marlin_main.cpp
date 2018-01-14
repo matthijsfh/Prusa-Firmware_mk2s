@@ -260,7 +260,7 @@ bool temp_cal_active = false;
 // FILAMENT_RUNOUT_SENSOR
 bool FIL_RUNOUT_INVERTING = false;
 uint8_t fil_runout_status = 0;
-bool fil_funout_inv = false;
+bool fil_runout_inv = false;
 bool ENDSTOPPULLUP_FIL_RUNOUT = false;
 bool FIL_RUNOUT_INVERTING_SET = false;
 uint8_t fil_runout_status_set = 0;
