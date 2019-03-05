@@ -96,6 +96,7 @@ typedef struct
 #define LANG_CODE_FR 0x6672 //!<'fr'
 #define LANG_CODE_IT 0x6974 //!<'it'
 #define LANG_CODE_PL 0x706c //!<'pl'
+#define LANG_CODE_TR 0x7472 //!<'tr'
 ///@}
 
 #if defined(__cplusplus)

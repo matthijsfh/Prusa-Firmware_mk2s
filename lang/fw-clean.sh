@@ -37,6 +37,7 @@ rm_if_exists firmware_es.hex
 rm_if_exists firmware_fr.hex
 rm_if_exists firmware_it.hex
 rm_if_exists firmware_pl.hex
+rm_if_exists firmware_tr.hex
 rm_if_exists progmem.out
 rm_if_exists textaddr.out
 rm_if_exists update_lang.out
@@ -46,6 +47,7 @@ rm_if_exists update_lang_es.out
 rm_if_exists update_lang_fr.out
 rm_if_exists update_lang_it.out
 rm_if_exists update_lang_pl.out
+rm_if_exists update_lang_tr.out
 rm_if_exists lang.bin
 rm_if_exists lang.hex
 

@@ -22,6 +22,7 @@ if [ "$LNG" = "all" ]; then
  ./lang-export.sh fr
  ./lang-export.sh it
  ./lang-export.sh pl
+ ./lang-export.sh tr
  exit 0
 fi
 
@@ -48,6 +49,7 @@ else
    *fr*) echo "French" ;;
    *it*) echo "Italian" ;;
    *pl*) echo "Polish" ;;
+   *pl*) echo "Turkish" ;;
   esac)
  # unknown language - error
  if [ -z "LNGNAME" ]; then

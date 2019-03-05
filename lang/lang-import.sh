@@ -103,6 +103,9 @@ fi
 #replace in polish translation
 #if [ "$LNG" = "pl" ]; then
 #fi
+#replace in turkish translation
+#if [ "$LNG" = "tr" ]; then
+#fi
 
 #check for nonasci characters
 if grep --color='auto' -P -n '[^\x00-\x7F]' $LNG'_filtered.po' >nonasci.txt; then

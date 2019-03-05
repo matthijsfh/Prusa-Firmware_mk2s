@@ -46,6 +46,7 @@ clean_lang es
 clean_lang fr
 clean_lang it
 clean_lang pl
+clean_lang tr
 
 echo -n "lang-clean.sh finished" >&2
 if [ $result -eq 0 ]; then
