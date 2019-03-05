@@ -30,6 +30,7 @@
 
 #MSG_PRESS c=20 r=0
 "and press the knob"
+"ve topuza basın"
 
 #MSG_CONFIRM_CARRIAGE_AT_THE_TOP c=20 r=2
 "Are left and right Z~carriages all up?"
