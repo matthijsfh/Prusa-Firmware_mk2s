@@ -951,6 +951,7 @@ static void lcd_status_screen()
 
 	if (lcd_draw_update)
 	{
+	#ifndef WEH002004_OLED //Refreshing the Status Screen is too noticible on OLED display
 		ReInitLCD++;
 		if (ReInitLCD == 30)
 		{
@@ -962,7 +963,7 @@ static void lcd_status_screen()
 			if ((ReInitLCD % 10) == 0)
 				lcd_refresh_noclear(); //to maybe revive the LCD if static electricity killed it.
 		}
-
+	#endif
 		lcdui_print_status_screen();
 
 		if (farm_mode)
