@@ -2111,6 +2111,7 @@ static void lcd_preheat_menu()
 //! | Main               |
 //! | Firmware:          |	c=18 r=1
 //! |  3.7.2.-2363       |	c=16 r=1
+//! |  955c88cf          |	c=16 r=1
 //! | prusa3d.com        |	MSG_PRUSA3D
 //! | forum.prusa3d.com  |	MSG_PRUSA3D_FORUM
 //! | howto.prusa3d.com  |	MSG_PRUSA3D_HOWTO
@@ -2212,6 +2213,7 @@ static void lcd_support_menu()
 
   MENU_ITEM_BACK_P(PSTR("Firmware:"));
   MENU_ITEM_BACK_P(PSTR(" " FW_VERSION_FULL));
+  MENU_ITEM_BACK_P(PSTR(" " FW_COMMIT_HASH));
 #if (FW_DEV_VERSION != FW_VERSION_GOLD) && (FW_DEV_VERSION != FW_VERSION_RC)
   MENU_ITEM_BACK_P(PSTR(" repo " FW_REPOSITORY));
 #endif

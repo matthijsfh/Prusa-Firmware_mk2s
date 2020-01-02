@@ -1061,6 +1061,8 @@ void setup()
 	stdout = uartout;
 	SERIAL_ECHO_START;
 	printf_P(PSTR(" " FW_VERSION_FULL "\n"));
+	//Prrint Git commit hash
+	printf_P(PSTR("Commit Hash: " FW_COMMIT_HASH "\n"));
 
 	//SERIAL_ECHOPAIR("Active sheet before:", static_cast<unsigned long int>(eeprom_read_byte(&(EEPROM_Sheets_base->active_sheet))));
 
