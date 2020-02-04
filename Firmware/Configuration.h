@@ -16,8 +16,8 @@ extern uint16_t nPrinterType;
 extern PGM_P sPrinterName;
 
 // Firmware version
-#define FW_VERSION "3.8.1"
-#define FW_COMMIT_NR   2869
+#define FW_VERSION "3.9.0"
+#define FW_COMMIT_NR   3175
 #define FW_COMMIT_HASH "Unknown"
 // FW_VERSION_UNKNOWN means this is an unofficial build.
 // The firmware should only be checked into github with this symbol.
@@ -425,7 +425,7 @@ your extruder heater takes 2 minutes to hit the target on heating.
 #define DEFAULT_XJERK                10       // (mm/sec)
 #define DEFAULT_YJERK                10       // (mm/sec)
 #define DEFAULT_ZJERK                 0.4     // (mm/sec)
-#define DEFAULT_EJERK                 2.5     // (mm/sec)
+#define DEFAULT_EJERK                 4.5     // (mm/sec)
 
 //===========================================================================
 //=============================Additional Features===========================
