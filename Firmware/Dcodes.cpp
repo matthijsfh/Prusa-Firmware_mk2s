@@ -540,19 +540,21 @@ void dcode_8()
         - `4` - PWR voltage
         - `5` - Ambient temperature
         - `6` - BED voltage
+		- `7` - IR Sensor Analog voltage
     - `V` Value to be written as simulated
     */
 const char* dcode_9_ADC_name(uint8_t i)
 {
 	switch (i)
 	{
-	case 0: return PSTR("TEMP_HEATER0");
-	case 1: return PSTR("TEMP_HEATER1");
-	case 2: return PSTR("TEMP_BED");
-	case 3: return PSTR("TEMP_PINDA");
-	case 4: return PSTR("VOLT_PWR");
-	case 5: return PSTR("TEMP_AMBIENT");
-	case 6: return PSTR("VOLT_BED");
+	case 0: return PSTR("I0: TEMP_HEATER0");
+	case 1: return PSTR("I1: TEMP_HEATER1");
+	case 2: return PSTR("I2: TEMP_BED");
+	case 3: return PSTR("I3: TEMP_PINDA");
+	case 4: return PSTR("I4: VOLT_PWR");
+	case 5: return PSTR("I5: TEMP_AMBIENT");
+	case 6: return PSTR("I6: VOLT_BED");
+	case 7: return PSTR("I7: VOLT_IR");
 	}
 	return 0;
 }
@@ -568,6 +570,10 @@ extern int current_voltage_raw_pwr;
 #ifdef VOLT_BED_PIN
 extern int current_voltage_raw_bed;
 #endif //VOLT_BED_PIN
+
+#ifdef IR_SENSOR_ANALOG
+extern int current_voltage_raw_IR;
+#endif //IR_SENSOR_ANALOG
 
 uint16_t dcode_9_ADC_val(uint8_t i)
 {
@@ -586,6 +592,9 @@ uint16_t dcode_9_ADC_val(uint8_t i)
 #ifdef VOLT_BED_PIN
 	case 6: return current_voltage_raw_bed;
 #endif //VOLT_BED_PIN
+#ifdef IR_SENSOR_ANALOG
+	case 7: return current_voltage_raw_IR;
+#endif //IR_SENSOR_ANALOG
 	}
 	return 0;
 }
@@ -610,6 +619,10 @@ void dcode_9()
 				adc_sim_mask |= (1 << index);
 				adc_values[index] = (((int)code_value()) << 4);
 				printf_P(PSTR("ADC%d=%4d\n"), index, adc_values[index] >> 4);
+			}
+			else
+			{ 
+			printf_P(PSTR("\tADC%d=%4d\t(%S)\n"), index, dcode_9_ADC_val(index) >> 4, dcode_9_ADC_name(index));
 			}
 		}
 	}
