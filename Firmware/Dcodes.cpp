@@ -572,7 +572,7 @@ extern int current_voltage_raw_bed;
 #endif //VOLT_BED_PIN
 
 #ifdef IR_SENSOR_ANALOG
-extern int current_voltage_raw_IR;
+extern uint16_t current_voltage_raw_IR;
 #endif //IR_SENSOR_ANALOG
 
 uint16_t dcode_9_ADC_val(uint8_t i)
