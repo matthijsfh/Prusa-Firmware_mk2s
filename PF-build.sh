@@ -125,7 +125,42 @@
 # 12 May 2020, DRracer   , Cleanup double MK2/s MK25/s `not_tran` and `not_used` files
 # 13 May 2020, leptun    , If cleanup files do not exist don't try to.
 # 19 May 2020, leptun    , Restore original `Configuration.h` and `config.h` in case of cannceled script or failed compiling during next start of this script.
-#### Start check if OSTYPE is supported
+# 20 May 2020, 3d-gussner, use functions
+#
+#### Start: Check Check if script has been canceled or failed nr1.
+check_script_failed_nr1()
+{
+	#Check for "Configuration.tmp" 
+	if [ ! -f "$SCRIPT_PATH/Firmware/Configuration.tmp" ]; then
+		cp -f $SCRIPT_PATH/Firmware/Configuration.h $SCRIPT_PATH/Firmware/Configuration.tmp
+		echo "No Configuration.tmp"
+	else
+		cp -f $SCRIPT_PATH/Firmware/Configuration.tmp $SCRIPT_PATH/Firmware/Configuration.h
+		echo "Found Configuration.tmp restore Configuration.h"
+	fi
+}
+#### End: Check Check if script has been canceled or failed nr1.
+
+#### Start: Check if script has been canceled or failed nr2.
+check_script_failed_nr2()
+{
+#Check for "config.tmp" 
+if [ ! -f "$SCRIPT_PATH/Firmware/config.tmp" ]; then
+	cp -f $SCRIPT_PATH/Firmware/config.h $SCRIPT_PATH/Firmware/config.tmp
+	echo "No config.tmp"
+else
+	cp -f $SCRIPT_PATH/Firmware/config.tmp $SCRIPT_PATH/Firmware/config.h
+	echo "Found config.tmp restore config.h"
+fi
+}
+#### End: Check if script has been canceled or failed nr2.
+
+
+
+
+#### Start: Check if OSTYPE is supported
+check_OS()
+{
 OS_FOUND=$( command -v uname)
 
 case $( "${OS_FOUND}" | tr '[:upper:]' '[:lower:]') in
@@ -176,17 +211,24 @@ else
 	exit 1
 fi
 sleep 2
-#### End check if OSTYPE is supported
+}
+#### End: Check if OSTYPE is supported
 
-#### Prepare bash environment and check if wget, zip and other needed things are available
-# Check wget
+#### Start: Prepare bash environment
+# Start: Check wget
+check_wget()
+{
 if ! type wget > /dev/null; then
 	echo "$(tput setaf 1)Missing 'wget' which is important to run this script"
 	echo "Please follow these instructions https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058 to install wget$(tput sgr0)"
 	exit 2
 fi
+}
+# End: Check wget
 
-# Check for zip
+# Start: Check for zip
+check_zip()
+{
 if ! type zip > /dev/null; then
 	if [ $TARGET_OS == "windows" ]; then
 		echo "$(tput setaf 1)Missing 'zip' which is important to run this script"
@@ -202,7 +244,12 @@ if ! type zip > /dev/null; then
 		exit 3
 	fi
 fi
-# Check python ... needed during language build
+}
+# End: Check for zip
+
+# Start: Check python ... needed during language build
+check_python()
+{
 if ! type python > /dev/null; then
 	if [ $TARGET_OS == "windows" ]; then
 		echo "$(tput setaf 1)Missing 'python' which is important to run this script"
@@ -216,11 +263,13 @@ if ! type python > /dev/null; then
 		exit 4
 	fi
 fi
+}
+# End: Check python ... needed during language build
 
-#### End prepare bash / Linux environment
 
-
-#### Set build environment 
+#### Start: Set build environment 
+set_build_env_variables()
+{
 ARDUINO_ENV="1.8.5"
 BUILD_ENV="1.0.6"
 BOARD="prusa_einsy_rambo"
@@ -249,10 +298,14 @@ echo "Package name:" $BOARD_PACKAGE_NAME
 echo "Board v.    :" $BOARD_VERSION
 echo "Specific Lib:" $LIB
 echo ""
+}
+#### End: Set build environment
 
-#### Start prepare building environment
+#### Start: Prepare building environment
 
-#Check if build exists and creates it if not
+# Start: Check if build exists and creates it if not
+check_create_build_folders()
+{
 if [ ! -d "../PF-build-dl" ]; then
     mkdir ../PF-build-dl || exit 5
 fi
@@ -267,8 +320,12 @@ if [ ! -d "../PF-build-env-$BUILD_ENV" ]; then
 	mkdir ../PF-build-env-$BUILD_ENV
 	sleep 5
 fi
+}
+# End: Check if build exists and creates it if not
 
-# Download and extract supported Arduino IDE depending on OS
+# Start: Download and extract supported Arduino IDE depending on OS
+download_prepare_arduinoIDE()
+{
 # Windows
 if [ $TARGET_OS == "windows" ]; then
 	if [ ! -f "arduino-$ARDUINO_ENV-windows.zip" ]; then
@@ -304,7 +361,12 @@ if [ $TARGET_OS == "linux" ]; then
 		echo "$(tput sgr0)"
 	fi
 fi
-# Make Arduino IDE portable
+}
+# End: Download and extract supported Arduino IDE depending on OS
+
+# Start: Make Arduino IDE portable
+portable_ArduinoIDE()
+{
 if [ ! -d ../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/ ]; then
 	mkdir ../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/
 fi
@@ -327,8 +389,12 @@ fi
 if [ ! -d ../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/portable/staging/ ]; then
 	mkdir ../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/portable/staging
 fi
+}
+# End: Make Arduino IDE portable
 
-# Change Arduino IDE preferences
+# Start: Change Arduino IDE preferences
+change_ArduinoIDEpreferances()
+{
 if [ ! -e ../PF-build-env-$BUILD_ENV/Preferences-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor.txt ]; then
 	echo "$(tput setaf 6)Setting $ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor Arduino IDE preferences for portable GUI usage...$(tput setaf 2)"
 	sleep 2
@@ -346,8 +412,12 @@ if [ ! -e ../PF-build-env-$BUILD_ENV/Preferences-$ARDUINO_ENV-$BOARD_VERSION-$TA
 	echo "# Preferences-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor" >> ../PF-build-env-$BUILD_ENV/Preferences-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor.txt
 	echo "$(tput sgr0)"
 fi
+}
+# Start: Change Arduino IDE preferences
 
-# Download and extract Prusa Firmware related parts
+# Start: Download and extract Prusa Firmware related parts
+download_prepare_Prusa_build_files()
+{
 # Download and extract PrusaResearchRambo board
 if [ ! -f "$BOARD_FILENAME-$BOARD_VERSION.tar.bz2" ]; then
 	echo "$(tput setaf 6)Downloading Prusa Research AVR MK3 RAMBo EINSy build environment...$(tput setaf 2)"
@@ -391,8 +461,12 @@ if [ ! -e "../PF-build-env-$BUILD_ENV/PF-build-env-$BUILD_ENV-$ARDUINO_ENV-$BOAR
 	echo "# PF-build-env-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor-$BUILD_ENV" >> ../PF-build-env-$BUILD_ENV/PF-build-env-$BUILD_ENV-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor.txt
 	echo "$(tput sgr0)"
 fi
+}
+# End: Download and extract Prusa Firmware related parts
 
-# Check if User updated Arduino IDE 1.8.5 boardsmanager and tools
+# Start: Check if User updated Arduino IDE 1.8.5 boardsmanager and tools
+check_ArduinoIDE_User_interaction()
+{
 if [ -d "../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/portable/packages/arduino/tools" ]; then
 	echo "$(tput setaf 6)Arduino IDE boards / tools have been manually updated...$"
 	echo "Please don't update the 'Arduino AVR boards' as this will prevent running this script (tput setaf 2)"
@@ -415,14 +489,17 @@ if [ -d "../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Proc
 	echo "$(tput sgr0)"
 	exit 13
 fi
+}
+# End: Check if User updated Arduino IDE 1.8.5 boardsmanager and tools
+#
+#### End: prepare bash / Linux environment
 
 
 #### End prepare building
 
-
-#### Start 
-cd $SCRIPT_PATH
-
+#### Start: Getting arguments for command line compiling
+get_arguments()
+{
 # First argument defines which variant of the Prusa Firmware will be compiled 
 if [ -z "$1" ] ; then
 	# Select which variant of the Prusa Firmware will be compiled, like
@@ -462,15 +539,7 @@ else
 	fi
 fi
 
-#Check if script has been canceled or failed.
-#Check for "config.tmp" 
-if [ ! -f "$SCRIPT_PATH/Firmware/config.tmp" ]; then
-	cp -f $SCRIPT_PATH/Firmware/config.h $SCRIPT_PATH/Firmware/config.tmp
-	echo "No config.tmp"
-else
-	cp -f $SCRIPT_PATH/Firmware/config.tmp $SCRIPT_PATH/Firmware/config.h
-	echo "Found config.tmp restore config.h"
-fi
+check_script_failed_nr2
 
 #Second argument defines if it is an english only version. Known values EN_ONLY / ALL
 #Check default language mode
@@ -516,8 +585,12 @@ if [ ! -z "$3" ] ; then
 		exit 23
 	fi
 fi
+}
+#### End: Getting arguments for command line compiling
 
-#Set BUILD_ENV_PATH
+#### Start: Set needed Paths
+set_paths()
+{
 cd ../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor || exit 24
 BUILD_ENV_PATH="$( pwd -P )"
 
@@ -528,12 +601,16 @@ if [ ! -d "Prusa-Firmware-build" ]; then
     mkdir Prusa-Firmware-build  || exit 25
 fi
 
-#Set the BUILD_PATH for Arduino IDE
+# Set the BUILD_PATH for Arduino IDE
 cd Prusa-Firmware-build || exit 26
 BUILD_PATH="$( pwd -P )"
+}
+#### End: Set needed Paths
 
-for v in ${VARIANTS[*]}
-do
+#### Start: Prepare code for compiling
+
+prepare_code_for_compiling()
+{
 	VARIANT=$(basename "$v" ".h")
 	# Find firmware version in Configuration.h file and use it to generate the hex filename
 	FW=$(grep --max-count=1 "\bFW_VERSION\b" $SCRIPT_PATH/Firmware/Configuration.h | sed -e's/  */ /g'|cut -d '"' -f2|sed 's/\.//g')
@@ -580,7 +657,13 @@ do
 	else
 		DEV_STATUS=$DEV_STATUS_SELECTED
 	fi
-	#Prepare hex files folders
+}
+#### End: Prepare code for compiling
+
+#### Start: Prepare hex files folder
+prepare_hex_folders()
+{
+#Prepare hex files folders
 	if [ ! -d "$SCRIPT_PATH/../PF-build-hex/FW$FW-Build$BUILD/$MOTHERBOARD" ]; then
 		mkdir -p $SCRIPT_PATH/../PF-build-hex/FW$FW-Build$BUILD/$MOTHERBOARD || exit 27
 	fi
@@ -604,7 +687,12 @@ do
 		echo "$(tput setaf 6)This zip file to be compiled already exists! To cancel this process press CRTL+C and rename existing hex file.$(tput sgr 0)"
 		read -t 10 -p "Press Enter to continue..."
 	fi
-	
+}
+#### End: Prepare hex files folder
+
+#### Start: List usefull data
+list_usefull_data()
+{
 	#List some useful data
 	echo "$(tput setaf 2)$(tput setab 7) "
 	echo "Variant    :" $VARIANT
@@ -616,18 +704,13 @@ do
 	echo "Languages  :" $LANGUAGES
 	echo "Hex-file Folder:" $OUTPUT_FOLDER
 	echo "$(tput sgr0)"
+}
+#### End: List usefull data
 
-	#Check if script has been canceled or failed.
-	#Check for "Configuration.tmp" 
-	if [ ! -f "$SCRIPT_PATH/Firmware/Configuration.tmp" ]; then
-		cp -f $SCRIPT_PATH/Firmware/Configuration.h $SCRIPT_PATH/Firmware/Configuration.tmp
-		echo "No Confguration.tmp"
-	else
-		cp -f $SCRIPT_PATH/Firmware/Configuration.tmp $SCRIPT_PATH/Firmware/Configuration.h
-		echo "Found Confguration.tmp restore Configuration.h"
-	fi
-
-	#Prepare Firmware to be compiled by copying variant as Configuration_prusa.h
+#### Start: Prepare Firmware to be compiled
+prepare_variant_for_compiling()
+{
+	# Copy variant as Configuration_prusa.h
 	if [ ! -f "$SCRIPT_PATH/Firmware/Configuration_prusa.h" ]; then
 		cp -f $SCRIPT_PATH/Firmware/variants/$VARIANT.h $SCRIPT_PATH/Firmware/Configuration_prusa.h || exit 28
 	else
@@ -657,11 +740,13 @@ do
 #	if [ $TARGET_OS == "windows" ]; then
 #		RAMBO_PLATFORM_FILE="PrusaResearchRambo/avr/platform.txt"
 #	fi	
-	
-	#### End of Prepare building
+}
+#### End: Prepare Firmware to be compiled	
+#### End of Prepare building
 		
-	#### Start building
-		
+#### Start: Compiling EN Prusa Firmware
+compile_en_firmware()
+{
 	export ARDUINO=$BUILD_ENV_PATH
 	#echo $BUILD_ENV_PATH
 	#export BUILDER=$ARDUINO/arduino-builder
@@ -676,8 +761,12 @@ do
 	#$BUILD_ENV_PATH/arduino-builder -dump-prefs -debug-level 10 -compile -hardware $ARDUINO/hardware -hardware $ARDUINO/portable/packages -tools $ARDUINO/tools-builder -tools $ARDUINO/hardware/tools/avr -tools $ARDUINO/portable/packages -built-in-libraries $ARDUINO/libraries -libraries $ARDUINO/portable/sketchbook/libraries -fqbn=$BOARD_PACKAGE_NAME:avr:$BOARD -build-path=$BUILD_PATH -warnings=all $SCRIPT_PATH/Firmware/Firmware.ino || exit 14
 	$BUILD_ENV_PATH/arduino-builder -compile -hardware $ARDUINO/hardware -hardware $ARDUINO/portable/packages -tools $ARDUINO/tools-builder -tools $ARDUINO/hardware/tools/avr -tools $ARDUINO/portable/packages -built-in-libraries $ARDUINO/libraries -libraries $ARDUINO/portable/sketchbook/libraries -fqbn=$BOARD_PACKAGE_NAME:avr:$BOARD -build-path=$BUILD_PATH -warnings=all $SCRIPT_PATH/Firmware/Firmware.ino || exit 14
 	echo "$(tput sgr 0)"
+}
+#### End: Compiling EN Prusa Firmware
 
-	if [ $LANGUAGES ==  "ALL" ]; then
+#### Start: Create and save Multi Language Prusa Firmware
+create_multi_firmware()
+{
 		echo "$(tput setaf 2)"
 
 		echo "Building multi language firmware" $MULTI_LANGUAGE_CHECK
@@ -738,12 +827,20 @@ do
 		./fw-clean.sh || exit 34
 		./lang-clean.sh || exit 35
 		echo "$(tput sgr 0)"
-	else
+}
+#### End: Create and save Multi Language Prusa Firmware
+	
+#### Start: Save EN_ONLY language Prusa Firmware
+save_en_firmware()
+{
 		echo "$(tput setaf 2)Copying English only firmware to PF-build-hex folder$(tput sgr 0)"
 		cp -f $BUILD_PATH/Firmware.ino.hex $SCRIPT_PATH/../$OUTPUT_FOLDER/FW$FW-Build$BUILD-$VARIANT-EN_ONLY.hex || exit 34
-	fi
+}
+#### End: Save EN_ONLY language Prusa Firmware
 
-	# Cleanup Firmware
+#### Start: Cleanup Firmware
+cleanup_firmware()
+{
 	rm $SCRIPT_PATH/Firmware/Configuration_prusa.h || exit 36
 	if find $SCRIPT_PATH/lang/ -name '*RAMBo10a*.txt' -printf 1 -quit | grep -q 1
 	then
@@ -776,13 +873,59 @@ do
 		rm $SCRIPT_PATH/Firmware/config.tmp
 	fi
 	sleep 5
-done
+}
+#### End: Prepare code for compiling
 
 # Switch to hex path and list build files
+finish_pf-build()
+{
 cd $SCRIPT_PATH
 cd ..
 echo "$(tput setaf 2) "
 echo " "
 echo "Build done, please use Slic3rPE > 1.41.0 to upload the firmware"
 echo "more information how to flash firmware https://www.prusa3d.com/drivers/ $(tput sgr 0)"
+}
 #### End building
+
+
+#### Check OS and needed apps
+check_OS
+check_wget
+check_zip
+check_python
+
+#### Prepare vuild environment
+set_build_env_variables
+check_create_build_folders
+
+#### Download/set needed apps and dependencies
+download_prepare_arduinoIDE
+portable_ArduinoIDE
+change_ArduinoIDEpreferances
+download_prepare_Prusa_build_files
+check_ArduinoIDE_User_interaction
+
+#### Start 
+cd $SCRIPT_PATH
+get_arguments
+set_paths
+
+for v in ${VARIANTS[*]}
+do
+	prepare_code_for_compiling
+	prepare_hex_folders
+	list_usefull_data
+	check_script_failed_nr1
+	prepare_variant_for_compiling
+	compile_en_firmware
+	if [ $LANGUAGES ==  "ALL" ]; then
+		create_multi_firmware
+	else
+		save_en_firmware
+	fi
+	cleanup_firmware
+done
+
+finish_pf-build
+
