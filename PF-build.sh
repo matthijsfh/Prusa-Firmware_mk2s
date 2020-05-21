@@ -131,8 +131,6 @@
 #### Start: Failures
 failures()
 {
-echo "Failures $1"
-
 case "$1" in
 	0) echo "$(tput setaf 2)PF-build.sh finished with success$(tput sgr0)" ;;
 	1) echo "$(tput setaf 1)This script doesn't support your Operating system!" ;;
@@ -141,7 +139,7 @@ case "$1" in
 	4) echo "$(tput setaf 5)Follow the instructions above $(tput sgr0)" ;;
 	21) echo "$(tput setaf 6)PF-build.sh has been interrupted/failed. Restore 'Configuration.h'$(tput sgr0)" ; sleep 5 ;;
 	22) echo "$(tput setaf 6)PF-build.sh has been interrupted/failed. Restore 'config.h'$(tput sgr0)" ; sleep 5 ;;
-	24) echo "$(tput setaf 1)PF-build.sh stopped due to compiling errors! Try to restore modified files.$(tput sgr0)"; check_script_failed_nr1 ; check_script_failed_nr2 ; exit 24 ;;
+	24) echo "$(tput setaf 1)PF-build.sh stopped due to compiling errors! Try to restore modified files.$(tput sgr0)"; check_script_failed_nr1 ; check_script_failed_nr2 ; cleanup_firmware ; exit 24 ;;
 esac
 }
 #### End: Failures
