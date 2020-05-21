@@ -56,7 +56,7 @@
 #   Some may argue that this is only used by a script, BUT as soon someone accidentally or on purpose starts Arduino IDE
 #   it will use the default Arduino IDE folders and so can corrupt the build environment.
 #
-# Version: 1.0.6-Build_19
+# Version: 1.0.6-Build_20
 # Change log:
 # 12 Jan 2019, 3d-gussner, Fixed "compiler.c.elf.flags=-w -Os -Wl,-u,vfprintf -lprintf_flt -lm -Wl,--gc-sections" in 'platform.txt'
 # 16 Jan 2019, 3d-gussner, Build_2, Added development check to modify 'Configuration.h' to prevent unwanted LCD messages that Firmware is unknown
@@ -126,17 +126,34 @@
 # 13 May 2020, leptun    , If cleanup files do not exist don't try to.
 # 19 May 2020, leptun    , Restore original `Configuration.h` and `config.h` in case of cannceled script or failed compiling during next start of this script.
 # 20 May 2020, 3d-gussner, use functions
+# 21 May 2020, 3d-gussner, install wget and zip on linux
 #
+#### Start: Failures
+failures()
+{
+case "$1" in
+	*0*) echo "$(tput setaf 2)PF-build.sh finished with success$(tput sgr0)" ;;
+	*1*) echo "$(tput setaf 1)This script doesn't support your Operating system!" ;;
+	*2*) echo "Install wget with the command $(tput setaf 2)'sudo apt install wget'$(tput sgr0)" ;;
+	*3*) echo "Install zip with the command $(tput setaf 2)'sudo apt install zip'$(tput sgr0)" ;;
+	*4*) echo "$(tput setaf 5)Follow the instructions above $(tput sgr0)" ;;
+	*21*) echo "$(tput setaf 6)PF-build.sh has been interrupted/failed. Restore 'Configuration.h'$(tput sgr0)" ; sleep 5 ;;
+	*22*) echo "$(tput setaf 6)PF-build.sh has been interrupted/failed. Restore 'config.h'$(tput sgr0)" ; sleep 5 ;;
+	*24*) echo "$(tput setaf 1)PF-build.sh stopped due to compiling errors! Try to restore modified files.$(tput sgr0)"; check_script_failed_nr1 ; check_script_failed_nr2 ;;
+esac
+}
+#### End: Failures
 #### Start: Check Check if script has been canceled or failed nr1.
 check_script_failed_nr1()
 {
 	#Check for "Configuration.tmp" 
 	if [ ! -f "$SCRIPT_PATH/Firmware/Configuration.tmp" ]; then
 		cp -f $SCRIPT_PATH/Firmware/Configuration.h $SCRIPT_PATH/Firmware/Configuration.tmp
-		echo "No Configuration.tmp"
+		#echo "No Configuration.tmp"
 	else
 		cp -f $SCRIPT_PATH/Firmware/Configuration.tmp $SCRIPT_PATH/Firmware/Configuration.h
-		echo "Found Configuration.tmp restore Configuration.h"
+		#echo "Found Configuration.tmp restore Configuration.h"
+		failures 21
 	fi
 }
 #### End: Check Check if script has been canceled or failed nr1.
@@ -147,10 +164,11 @@ check_script_failed_nr2()
 #Check for "config.tmp" 
 if [ ! -f "$SCRIPT_PATH/Firmware/config.tmp" ]; then
 	cp -f $SCRIPT_PATH/Firmware/config.h $SCRIPT_PATH/Firmware/config.tmp
-	echo "No config.tmp"
+	#echo "No config.tmp"
 else
 	cp -f $SCRIPT_PATH/Firmware/config.tmp $SCRIPT_PATH/Firmware/config.h
-	echo "Found config.tmp restore config.h"
+	#echo "Found config.tmp restore config.h"
+	failures 22
 fi
 }
 #### End: Check if script has been canceled or failed nr2.
@@ -208,7 +226,7 @@ else
 	echo "$(tput setaf 1)This script doesn't support your Operating system!"
 	echo "Please use Linux 64-bit or Windows 10 64-bit with Linux subsystem / git-bash"
 	echo "Read the notes of build.sh$(tput sgr0)"
-	exit 1
+	failures 1
 fi
 sleep 2
 }
@@ -219,9 +237,14 @@ sleep 2
 check_wget()
 {
 if ! type wget > /dev/null; then
-	echo "$(tput setaf 1)Missing 'wget' which is important to run this script"
-	echo "Please follow these instructions https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058 to install wget$(tput sgr0)"
-	exit 2
+	if [ $TARGET_OS == "windows" ]; then
+		echo "$(tput setaf 1)Missing 'wget' which is important to run this script$(tput sgr0)"
+		echo "Please follow these instructions https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058 to install wget$(tput sgr0)"
+		exit 2
+	elif [ $TARGET_OS == "linux" ]; then
+		echo "$(tput setaf 1)Missing 'wget' which is important to run this script$(tput sgr0)"
+		sudo apt install wget ||failures 2
+	fi
 fi
 }
 # End: Check wget
@@ -239,9 +262,8 @@ if ! type zip > /dev/null; then
 		echo "you can run the command $(tput setaf 2)ln -s /c/Program Files/7-Zip/7z.exe zip.exe$(tput sgr0)"
 		exit 3
 	elif [ $TARGET_OS == "linux" ]; then
-		echo "$(tput setaf 1)Missing 'zip' which is important to run this script"
-		echo "install it with the command $(tput setaf 2)'sudo apt-get install zip'$(tput sgr0)"
-		exit 3
+		echo "$(tput setaf 1)Missing 'zip' which is important to run this script$(tput sgr0)"
+		sudo apt install zip ||failures 3
 	fi
 fi
 }
@@ -256,11 +278,11 @@ if ! type python > /dev/null; then
 		exit 4
 	elif [ $TARGET_OS == "linux" ]; then
 		echo "$(tput setaf 1)Missing 'python' which is important to run this script"
-		echo "As Python 2.x will not be maintained from 2020 please,"
-		echo "install it with the command $(tput setaf 2)'sudo apt-get install python3'."
-		echo "Check which version of Python3 has been installed using 'ls /usr/bin/python3*'"
-		echo "Use 'sudo ln -sf /usr/bin/python3.x /usr/bin/python' (where 'x' is your version number) to make it default.$(tput sgr0)"
-		exit 4
+		echo "$(tput setaf 3)As Python 2.x will not be maintained from 2020 please,"
+		echo "install it with the command $(tput setaf 2)'sudo apt install python3'$(tput setaf 3)."
+		echo "Check which version of Python3 has been installed using $(tput setaf 2)'ls /usr/bin/python3*'$(tput setaf 3)"
+		echo "Use $(tput setaf 2)'sudo ln -sf /usr/bin/python3.x /usr/bin/python'$(tput setaf 3) (where 'x' is your version number) to make it default.$(tput sgr0)"
+		failures 4
 	fi
 fi
 }
@@ -318,7 +340,7 @@ BUILD_ENV_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 if [ ! -d "../PF-build-env-$BUILD_ENV" ]; then
 	echo "$(tput setaf 6)PF-build-env-$BUILD_ENV is missing ... creating it now for you$(tput sgr 0)"
 	mkdir ../PF-build-env-$BUILD_ENV
-	sleep 5
+	sleep 2
 fi
 }
 # End: Check if build exists and creates it if not
@@ -755,11 +777,11 @@ compile_en_firmware()
 	#read -t 5 -p "Press Enter..."
 	echo 
 
-	echo "Start to build Prusa Firmware ..."
+	echo "$(tput setaf 2)Start to build Prusa Firmware ...$(tput sgr 0)"
 	echo "Using variant $VARIANT$(tput setaf 3)"
 	sleep 2
 	#$BUILD_ENV_PATH/arduino-builder -dump-prefs -debug-level 10 -compile -hardware $ARDUINO/hardware -hardware $ARDUINO/portable/packages -tools $ARDUINO/tools-builder -tools $ARDUINO/hardware/tools/avr -tools $ARDUINO/portable/packages -built-in-libraries $ARDUINO/libraries -libraries $ARDUINO/portable/sketchbook/libraries -fqbn=$BOARD_PACKAGE_NAME:avr:$BOARD -build-path=$BUILD_PATH -warnings=all $SCRIPT_PATH/Firmware/Firmware.ino || exit 14
-	$BUILD_ENV_PATH/arduino-builder -compile -hardware $ARDUINO/hardware -hardware $ARDUINO/portable/packages -tools $ARDUINO/tools-builder -tools $ARDUINO/hardware/tools/avr -tools $ARDUINO/portable/packages -built-in-libraries $ARDUINO/libraries -libraries $ARDUINO/portable/sketchbook/libraries -fqbn=$BOARD_PACKAGE_NAME:avr:$BOARD -build-path=$BUILD_PATH -warnings=all $SCRIPT_PATH/Firmware/Firmware.ino || exit 14
+	$BUILD_ENV_PATH/arduino-builder -compile -hardware $ARDUINO/hardware -hardware $ARDUINO/portable/packages -tools $ARDUINO/tools-builder -tools $ARDUINO/hardware/tools/avr -tools $ARDUINO/portable/packages -built-in-libraries $ARDUINO/libraries -libraries $ARDUINO/portable/sketchbook/libraries -fqbn=$BOARD_PACKAGE_NAME:avr:$BOARD -build-path=$BUILD_PATH -warnings=all $SCRIPT_PATH/Firmware/Firmware.ino || failures 24
 	echo "$(tput sgr 0)"
 }
 #### End: Compiling EN Prusa Firmware
@@ -767,10 +789,7 @@ compile_en_firmware()
 #### Start: Create and save Multi Language Prusa Firmware
 create_multi_firmware()
 {
-		echo "$(tput setaf 2)"
-
-		echo "Building multi language firmware" $MULTI_LANGUAGE_CHECK
-		echo "$(tput sgr 0)"
+		echo "$(tput setaf 2)Building multi language firmware$(tput sgr 0)"
 		sleep 2
 		cd $SCRIPT_PATH/lang
 		echo "$(tput setaf 3)"
@@ -872,20 +891,24 @@ cleanup_firmware()
 	if [ -e "$SCRIPT_PATH/Firmware/config.tmp" ]; then
 		rm $SCRIPT_PATH/Firmware/config.tmp
 	fi
-	sleep 5
+	sleep 2
 }
 #### End: Prepare code for compiling
 
-# Switch to hex path and list build files
+#### Start: Finish script
+# List hex path and list build files
 finish_pf-build()
 {
 cd $SCRIPT_PATH
 cd ..
-echo "$(tput setaf 2) "
 echo " "
-echo "Build done, please use Slic3rPE > 1.41.0 to upload the firmware"
+failures 0
+echo "$(tput setaf 2)Build done, please use Slic3rPE > 1.41.0 to upload the firmware"
 echo "more information how to flash firmware https://www.prusa3d.com/drivers/ $(tput sgr 0)"
+
+ls -r -h $SCRIPT_PATH/../PF-build-hex/FW$FW-Build$BUILD/*
 }
+#### End: Finish script
 #### End building
 
 
