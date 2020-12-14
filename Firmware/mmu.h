@@ -22,6 +22,8 @@ extern int16_t mmu_buildnr;
 
 extern uint16_t mmu_power_failures;
 
+extern bool activefilament; // FRIMMEL
+
 #define MMU_FILAMENT_UNKNOWN 255
 
 #define MMU_NO_MOVE 0
@@ -138,5 +140,6 @@ extern void mmu_continue_loading(bool blocking);
 extern void mmu_filament_ramming();
 extern void mmu_wait_for_heater_blocking();
 extern void mmu_load_step(bool synchronize = true);
+
 
 #endif //MMU_H

@@ -9259,6 +9259,7 @@ void get_coordinates()
       bool relative = axis_relative_modes & (1 << i);
       destination[i] = (float)code_value();
       if (i == E_AXIS) {
+if  (destination[E_AXIS] < -10.0) {activefilament = false; } // FRIMMEL  
         float emult = extruder_multiplier[active_extruder];
         if (emult != 1.) {
           if (! relative) {
