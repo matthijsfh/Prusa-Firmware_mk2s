@@ -284,14 +284,14 @@
  *------------------------------------*/
 
 // Mintemps
-#define HEATER_0_MINTEMP 10
+#define HEATER_0_MINTEMP 30
 #define HEATER_1_MINTEMP 5
 #define HEATER_2_MINTEMP 5
 #define HEATER_MINTEMP_DELAY 15000                // [ms] ! if changed, check maximal allowed value @ ShortTimer
 #if HEATER_MINTEMP_DELAY>USHRT_MAX
 #error "Check maximal allowed value @ ShortTimer (see HEATER_MINTEMP_DELAY definition)"
 #endif
-#define BED_MINTEMP 10
+#define BED_MINTEMP 30
 #define BED_MINTEMP_DELAY 50000                   // [ms] ! if changed, check maximal allowed value @ ShortTimer
 #if BED_MINTEMP_DELAY>USHRT_MAX
 #error "Check maximal allowed value @ ShortTimer (see BED_MINTEMP_DELAY definition)"
@@ -498,6 +498,9 @@
 #define FARM_PREHEAT_HOTEND_TEMP 250
 #define FARM_PREHEAT_HPB_TEMP 80
 
+#define MIN_PREHEAT_HOTEND_TEMP 45 //HEATER_0_MINTEMP+TEMP_HYSTERESIS/2
+#define MIN_PREHEAT_HPB_TEMP 35 // BED_MINTEMP+TEMP_HYSTERESIS/2
+
 #define PLA_PREHEAT_HOTEND_TEMP 215
 #define PLA_PREHEAT_HPB_TEMP 60
 
@@ -521,6 +524,9 @@
 
 #define FLEX_PREHEAT_HOTEND_TEMP 240
 #define FLEX_PREHEAT_HPB_TEMP 50
+
+#define COLD_PREHREAT_HOTEND_TEMP 45 //Use at least HEATER_0_MINITEMP + 5°C
+#define COLD_PREHREAT_HPB_TEMP 35 //Use at least BED_MINITEMP + 5°C
 
 /*------------------------------------
  THERMISTORS SETTINGS

@@ -1536,7 +1536,7 @@ void min_temp_error(uint8_t e) {
 #endif
   disable_heater();
 //if (current_temperature_ambient < MINTEMP_MINAMBIENT) return;
-	static const char err[] PROGMEM = "MINTEMP";
+	static const char err[] PROGMEM = "MINTEMP HOTEND";
   if(IsStopped() == false) {
     temp_error_messagepgm(err, e);
     last_alert_sent_to_lcd = LCDALERT_HEATERMINTEMP;
@@ -2177,9 +2177,13 @@ void check_min_temp_heater0()
 #else
 	if (current_temperature_raw[0] <= minttemp_raw[0]) {
 #endif
+    SERIAL_PROTOCOLLNPGM("H 1");
+    _delay(50);
 		menu_set_serious_error(SERIOUS_ERR_MINTEMP_HEATER);
 		min_temp_error(0);
 	} else if( menu_is_serious_error(SERIOUS_ERR_MINTEMP_HEATER) ) {
+    SERIAL_PROTOCOLLNPGM("H 2");
+    _delay(50);
 		// no recovery, just force the user to restart the printer
 		// which is a safer variant than just continuing printing
 		// The automaton also checks for hysteresis - the temperature must have reached a few degrees above the MINTEMP, before
@@ -2189,22 +2193,32 @@ void check_min_temp_heater0()
 		// due to stupid compiler that takes 16 more bytes.
 		alert_automaton_hotend.step(current_temperature[0], minttemp[0] + TEMP_HYSTERESIS);
 	}
+      SERIAL_PROTOCOLLNPGM("H 3");
+      _delay(50);
 }
 
 void check_min_temp_bed()
 {
+//SERIAL_PROTOCOLPGM("check_min_temp_bed");
 #if HEATER_BED_RAW_LO_TEMP > HEATER_BED_RAW_HI_TEMP
 	if (current_temperature_bed_raw >= bed_minttemp_raw) {
 #else
 	if (current_temperature_bed_raw <= bed_minttemp_raw) {
 #endif
+    SERIAL_PROTOCOLLNPGM("B 1");
+    _delay(50);
 		menu_set_serious_error(SERIOUS_ERR_MINTEMP_BED);
 		bed_min_temp_error();
 	} else if( menu_is_serious_error(SERIOUS_ERR_MINTEMP_BED) ){
+    SERIAL_PROTOCOLLNPGM("B 2");
+    _delay(50);
 		// no recovery, just force the user to restart the printer
 		// which is a safer variant than just continuing printing
 		alert_automaton_bed.step(current_temperature_bed, BED_MINTEMP + TEMP_HYSTERESIS);
 	}
+    SERIAL_PROTOCOLLNPGM("B 3");
+    _delay(50);
+
 }
 
 #ifdef AMBIENT_MINTEMP
@@ -2222,6 +2236,7 @@ void check_min_temp_ambient()
 
 void check_min_temp()
 {
+//SERIAL_PROTOCOLLNPGM("check_min_temp");
 static bool bCheckingOnHeater=false;              // state variable, which allows to short no-checking delay (is set, when temperature is (first time) over heaterMintemp)
 static bool bCheckingOnBed=false;                 // state variable, which allows to short no-checking delay (is set, when temperature is (first time) over bedMintemp)
 #ifdef AMBIENT_THERMISTOR
@@ -2229,6 +2244,10 @@ static bool bCheckingOnBed=false;                 // state variable, which allow
 check_min_temp_ambient();
 #endif
 #if AMBIENT_RAW_LO_TEMP > AMBIENT_RAW_HI_TEMP
+//SERIAL_PROTOCOLPGM("cur Amb raw:");
+//SERIAL_PROTOCOL(current_temperature_raw_ambient);
+//SERIAL_PROTOCOLPGM(" min Amb raw:");
+//SERIAL_PROTOCOLLN(ambient_minttemp_raw);
 if(current_temperature_raw_ambient>(OVERSAMPLENR*MINTEMP_MINAMBIENT_RAW)) // thermistor is NTC type
 #else
 if(current_temperature_raw_ambient=<(OVERSAMPLENR*MINTEMP_MINAMBIENT_RAW))
@@ -2237,39 +2256,148 @@ if(current_temperature_raw_ambient=<(OVERSAMPLENR*MINTEMP_MINAMBIENT_RAW))
 #endif //AMBIENT_THERMISTOR
 // *** 'common' part of code for MK2.5 & MK3
 // * nozzle checking
-if(target_temperature[active_extruder]>minttemp[active_extruder])
+/*
+SERIAL_PROTOCOLPGM("cur E0:");
+SERIAL_PROTOCOL(current_temperature[active_extruder]);
+SERIAL_PROTOCOLPGM(" min E0:");
+SERIAL_PROTOCOLLN(minttemp[active_extruder]-TEMP_HYSTERESIS);
+_delay(50);
+*/
+if(target_temperature[active_extruder]>minttemp[active_extruder]+TEMP_HYSTERESIS)
      {                                            // ~ nozzle heating is on
-     bCheckingOnHeater=bCheckingOnHeater||(current_temperature[active_extruder]>(minttemp[active_extruder]+TEMP_HYSTERESIS)); // for eventually delay cutting
+     SERIAL_PROTOCOLLNPGM("H 4");
+     _delay(50);
+
+     bCheckingOnHeater=bCheckingOnHeater||(current_temperature[active_extruder]>(minttemp[active_extruder]-TEMP_HYSTERESIS)); // for eventually delay cutting
      if(oTimer4minTempHeater.expired(HEATER_MINTEMP_DELAY)||(!oTimer4minTempHeater.running())||bCheckingOnHeater)
           {
+          SERIAL_PROTOCOLLNPGM("H 5");
+          _delay(50);
           bCheckingOnHeater=true;                 // not necessary
-		check_min_temp_heater0();               // delay is elapsed or temperature is/was over minTemp => periodical checking is active
+		      check_min_temp_heater0();               // delay is elapsed or temperature is/was over minTemp => periodical checking is active
           }
      }
-else {                                            // ~ nozzle heating is off
-     oTimer4minTempHeater.start();
-     bCheckingOnHeater=false;
-     }
+else 
+     {                                            // ~ nozzle heating is off
+     //SERIAL_PROTOCOLLNPGM("H 6");
+     //_delay(50);
+      if(!oTimer4minTempHeater.running()&&!bCheckingOnHeater)
+      {
+      SERIAL_PROTOCOLLNPGM("H 6a start timer");
+      _delay(50);
+      oTimer4minTempHeater.start();
+      bCheckingOnHeater=false;
+      }
+      /*else
+      {
+      SERIAL_PROTOCOLLNPGM("H 6b running timer");
+      _delay(50);
+         //heater timer is running
+      }*/
+      if (oTimer4minTempHeater.expired(BED_MINTEMP_DELAY))
+      {
+      SERIAL_PROTOCOLLNPGM("H 6c timer expired");
+       _delay(50);
+      oTimer4minTempHeater.stop();
+      bCheckingOnHeater=true;
+		  check_min_temp_heater0();                   // delay is elapsed or temperature is/was over minTemp => periodical checking is active
+      }   
+      }
 // * bed checking
-if(target_temperature_bed>BED_MINTEMP)
+/*
+SERIAL_PROTOCOLPGM("cur BED:");
+SERIAL_PROTOCOL(current_temperature_bed);
+SERIAL_PROTOCOLPGM(" min BED:");
+SERIAL_PROTOCOLLN(BED_MINTEMP-TEMP_HYSTERESIS);
+_delay(50);
+*/
+if(target_temperature_bed>BED_MINTEMP+TEMP_HYSTERESIS)
      {                                            // ~ bed heating is on
-     bCheckingOnBed=bCheckingOnBed||(current_temperature_bed>(BED_MINTEMP+TEMP_HYSTERESIS)); // for eventually delay cutting
+     SERIAL_PROTOCOLLNPGM("B 4");
+     _delay(50);
+     bCheckingOnBed=bCheckingOnBed||(current_temperature_bed>(BED_MINTEMP-TEMP_HYSTERESIS)); // for eventually delay cutting
      if(oTimer4minTempBed.expired(BED_MINTEMP_DELAY)||(!oTimer4minTempBed.running())||bCheckingOnBed)
           {
+          SERIAL_PROTOCOLLNPGM("B 5");
+          _delay(50);
           bCheckingOnBed=true;                    // not necessary
-		check_min_temp_bed();                   // delay is elapsed or temperature is/was over minTemp => periodical checking is active
+		      check_min_temp_bed();                   // delay is elapsed or temperature is/was over minTemp => periodical checking is active
           }
      }
-else {                                            // ~ bed heating is off
-     oTimer4minTempBed.start();
-     bCheckingOnBed=false;
+else 
+     {                                            // ~ bed heating is off
+     //SERIAL_PROTOCOLLNPGM("B 6");
+     //_delay(50);
+     if(!oTimer4minTempBed.running()&&!bCheckingOnBed)
+      {
+      SERIAL_PROTOCOLLNPGM("B 6a start timer");
+      _delay(50);
+      oTimer4minTempBed.start();
+      bCheckingOnBed=false;
+      }
+      /*else
+      {
+      SERIAL_PROTOCOLLNPGM("B 6b running timer");
+      _delay(50);
+      //bed timer is running
+      }*/
+      if (oTimer4minTempBed.expired(BED_MINTEMP_DELAY))
+      {
+      SERIAL_PROTOCOLLNPGM("B 6c expired timer");
+       _delay(50);
+      oTimer4minTempBed.stop();
+      bCheckingOnBed=true;
+		  check_min_temp_bed();                   // delay is elapsed or temperature is/was over minTemp => periodical checking is active
+      }   
      }
 // *** end of 'common' part
 #ifdef AMBIENT_THERMISTOR
      }
 else {                                            // ambient temperature is standard
+    //SERIAL_PROTOCOLLNPGM("H 7");
+    //_delay(50);
+     if(!oTimer4minTempHeater.running()&&!bCheckingOnHeater)
+      {
+      SERIAL_PROTOCOLLNPGM("H 7a start timer");
+      _delay(50);
+      oTimer4minTempHeater.start();
+      bCheckingOnHeater=false;
+      }
+      else
+      {
+      //SERIAL_PROTOCOLLNPGM("H 7b running timer");
+      //_delay(50);
+      
+      }
+      if (oTimer4minTempHeater.expired(BED_MINTEMP_DELAY))
+      {
+      SERIAL_PROTOCOLLNPGM("H 7c expired timer");
+       _delay(50);
+      bCheckingOnHeater=true;
      check_min_temp_heater0();
-     check_min_temp_bed();
+      }
+    //SERIAL_PROTOCOLLNPGM("B 7");
+    //_delay(50);
+     if(!oTimer4minTempBed.running()&&!bCheckingOnBed)
+      {
+      SERIAL_PROTOCOLLNPGM("B 7a start timer");
+      _delay(50);
+      oTimer4minTempBed.start();
+      bCheckingOnBed=false;
+      }
+      else
+      {
+      //SERIAL_PROTOCOLLNPGM("B 7b running timer");
+      //_delay(50);
+      
+      }
+      if (oTimer4minTempBed.expired(BED_MINTEMP_DELAY))
+      {
+      SERIAL_PROTOCOLLNPGM("B 7c expired timer");
+       _delay(50);
+      bCheckingOnBed=true;
+		  check_min_temp_bed();                   // delay is elapsed or temperature is/was over minTemp => periodical checking is active
+      }   
      }
 #endif //AMBIENT_THERMISTOR
 }
