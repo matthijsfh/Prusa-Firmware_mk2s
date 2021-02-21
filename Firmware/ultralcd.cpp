@@ -81,6 +81,7 @@ unsigned int custom_message_state = 0;
 
 
 bool isPrintPaused = false;
+bool usb_print_started = false;
 uint8_t farm_mode = 0;
 int farm_timer = 8;
 uint8_t farm_status = 0;
@@ -469,6 +470,14 @@ void lcdui_print_percent_done(void)
 	}
 	sprintf_P(per, num?_N("%3hhd"):_N("---"), calc_percent_done());
 	lcd_printf_P(_N("%3S%3s%%"), src, per);
+    if (is_usb_printing && !usb_print_started) { // set starttime for USB prints
+        usb_print_started = true;
+        starttime=_millis();
+    }
+    if (!is_usb_printing && usb_print_started) { // set stoptime for USB prints
+        usb_print_started = false;
+        stoptime=_millis();
+    }
 }
 
 // Print extruder status (5 chars total)
