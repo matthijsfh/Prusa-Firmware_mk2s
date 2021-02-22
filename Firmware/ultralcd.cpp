@@ -470,11 +470,11 @@ void lcdui_print_percent_done(void)
 	}
 	sprintf_P(per, num?_N("%3hhd"):_N("---"), calc_percent_done());
 	lcd_printf_P(_N("%3S%3s%%"), src, per);
-    if (is_usb_printing && !usb_print_started) { // set starttime for USB prints
+    if (!IS_SD_PRINTING && is_usb_printing && !usb_print_started) { // set starttime for USB prints
         usb_print_started = true;
         starttime=_millis();
     }
-    if (!is_usb_printing && usb_print_started) { // set stoptime for USB prints
+    if (!IS_SD_PRINTING && !is_usb_printing && usb_print_started) { // set stoptime for USB prints
         usb_print_started = false;
         stoptime=_millis();
         unsigned long t=(stoptime-starttime-pause_time)/1000;
