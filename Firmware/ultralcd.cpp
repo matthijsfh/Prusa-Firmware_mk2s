@@ -477,6 +477,9 @@ void lcdui_print_percent_done(void)
     if (!is_usb_printing && usb_print_started) { // set stoptime for USB prints
         usb_print_started = false;
         stoptime=_millis();
+        unsigned long t=(stoptime-starttime-pause_time)/1000;
+        pause_time=0;
+        save_statistics(total_filament_used, t);
     }
 }
 
