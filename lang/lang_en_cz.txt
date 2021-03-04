@@ -1099,8 +1099,8 @@
 "Je vyzadovana stabilni pokojova teplota 21-26C a pevna podlozka."
 
 #MSG_STATISTICS
-"Statistics  "
-"Statistika "
+"Statistics" c=18
+"Statistika"
 
 #MSG_STOP_PRINT
 "Stop print"

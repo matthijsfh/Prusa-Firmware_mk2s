@@ -1099,7 +1099,7 @@
 "Sono necessari una temperatura ambiente di 21-26C e una superficie rigida "
 
 #MSG_STATISTICS
-"Statistics  "
+"Statistics" c=18
 "Statistiche"
 
 #MSG_STOP_PRINT

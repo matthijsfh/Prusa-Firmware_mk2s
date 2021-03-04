@@ -1099,7 +1099,7 @@
 "Potrzebna jest stabilna temperatura otoczenia 21-26C i stabilne podloze."
 
 #MSG_STATISTICS
-"Statistics  "
+"Statistics" c=18
 "Statystyki"
 
 #MSG_STOP_PRINT

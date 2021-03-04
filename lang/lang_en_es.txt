@@ -1099,8 +1099,8 @@
 "Se necesita una temperatura ambiente ente 21 y 26C y un soporte rigido."
 
 #MSG_STATISTICS
-"Statistics  "
-"Estadisticas "
+"Statistics" c=18
+"Estadisticas"
 
 #MSG_STOP_PRINT
 "Stop print"

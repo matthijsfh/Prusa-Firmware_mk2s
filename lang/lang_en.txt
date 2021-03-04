@@ -824,7 +824,7 @@
 "Stable ambient temperature 21-26C is needed a rigid stand is required."
 
 #MSG_STATISTICS
-"Statistics  "
+"Statistics" c=18
 
 #MSG_STOP_PRINT
 "Stop print"

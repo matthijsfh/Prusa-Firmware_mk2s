@@ -1099,8 +1099,8 @@
 "Stabile Umgebungs- temperatur 21-26C und feste Stand- flaeche erforderlich"
 
 #MSG_STATISTICS
-"Statistics  "
-"Statistiken "
+"Statistics" c=18
+"Statistiken"
 
 #MSG_STOP_PRINT
 "Stop print"

@@ -1099,7 +1099,7 @@
 "Une temperature ambiante stable de 21-26C et un support stable sont requis."
 
 #MSG_STATISTICS
-"Statistics  "
+"Statistics" c=18
 "Statistiques"
 
 #MSG_STOP_PRINT

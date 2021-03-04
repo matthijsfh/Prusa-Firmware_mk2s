@@ -1098,8 +1098,8 @@
 "Stable ambient temperature 21-26C is needed a rigid stand is required."
 "Stabiele omgevingstemperatuur van 21-26C is nodig, een stevige stand is vereist."
 
-#MSG_STATISTICS
-"Statistics  "
+#MSG_STATISTICS c=18
+"Statistics"
 "Statistieken"
 
 #MSG_STOP_PRINT
