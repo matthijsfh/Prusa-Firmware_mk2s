@@ -2625,7 +2625,7 @@ static void lcd_LoadFilament()
 void lcd_menu_statistics()
 {
     lcd_timeoutToStatus.stop(); //infinite timeout
-	if (IS_SD_PRINTING)
+	if (IS_SD_PRINTING || is_usb_printing)
 	{
 		const float _met = ((float)total_filament_used) / (100000.f);
 		const uint32_t _t = (_millis() - starttime) / 1000ul;
