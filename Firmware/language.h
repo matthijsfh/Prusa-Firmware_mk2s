@@ -100,6 +100,89 @@ typedef struct
 #ifdef COMMUNITY_LANG_NL
 #define LANG_CODE_NL 0x6e6c //!<'nl'
 #endif // COMMUNITY_LANG_NL
+#ifdef COMMUNITY_LANG_AA
+#define LANG_CODE_AA 0x6161 //!<'aa'
+#endif // COMMUNITY_LANG_AA
+#ifdef COMMUNITY_LANG_AB
+#define LANG_CODE_AB 0x6162 //!<'ab'
+#endif // COMMUNITY_LANG_AB
+#ifdef COMMUNITY_LANG_AC
+#define LANG_CODE_AC 0x6163 //!<'ac'
+#endif // COMMUNITY_LANG_AC
+#ifdef COMMUNITY_LANG_AD
+#define LANG_CODE_AD 0x6164 //!<'ad'
+#endif // COMMUNITY_LANG_AD
+#ifdef COMMUNITY_LANG_AE
+#define LANG_CODE_AE 0x6165 //!<'ae'
+#endif // COMMUNITY_LANG_AE
+#ifdef COMMUNITY_LANG_AF
+#define LANG_CODE_AF 0x6166 //!<'af'
+#endif // COMMUNITY_LANG_AF
+#ifdef COMMUNITY_LANG_AG
+#define LANG_CODE_AG 0x6167 //!<'ag'
+#endif // COMMUNITY_LANG_AG
+
+
+#ifdef COMMUNITY_LANG_AH
+#define LANG_CODE_AH 0x6168 //!<'ah'
+#endif // COMMUNITY_LANG_AH
+#ifdef COMMUNITY_LANG_AI
+#define LANG_CODE_AI 0x6169 //!<'ai'
+#endif // COMMUNITY_LANG_AI
+#ifdef COMMUNITY_LANG_AJ
+#define LANG_CODE_AJ 0x616a //!<'aj'
+#endif // COMMUNITY_LANG_AJ
+#ifdef COMMUNITY_LANG_AK
+#define LANG_CODE_AK 0x616b //!<'ak'
+#endif // COMMUNITY_LANG_AK
+#ifdef COMMUNITY_LANG_AL
+#define LANG_CODE_AL 0x616c //!<'al'
+#endif // COMMUNITY_LANG_AL
+#ifdef COMMUNITY_LANG_AM
+#define LANG_CODE_AM 0x616d //!<'am'
+#endif // COMMUNITY_LANG_AM
+#ifdef COMMUNITY_LANG_AN
+#define LANG_CODE_AN 0x616e //!<'an'
+#endif // COMMUNITY_LANG_AN
+#ifdef COMMUNITY_LANG_AO
+#define LANG_CODE_AO 0x616f //!<'ao'
+#endif // COMMUNITY_LANG_AO
+/*
+#ifdef COMMUNITY_LANG_AP
+#define LANG_CODE_AP 0x6170 //!<'ap'
+#endif // COMMUNITY_LANG_AP
+#ifdef COMMUNITY_LANG_AQ
+#define LANG_CODE_AQ 0x6171 //!<'aq'
+#endif // COMMUNITY_LANG_AQ
+#ifdef COMMUNITY_LANG_AR
+#define LANG_CODE_AR 0x6172 //!<'ar'
+#endif // COMMUNITY_LANG_AR
+#ifdef COMMUNITY_LANG_AS
+#define LANG_CODE_AS 0x6173 //!<'as'
+#endif // COMMUNITY_LANG_AS
+#ifdef COMMUNITY_LANG_AT
+#define LANG_CODE_AT 0x6174 //!<'at'
+#endif // COMMUNITY_LANG_AT
+#ifdef COMMUNITY_LANG_AU
+#define LANG_CODE_AU 0x6175 //!<'au'
+#endif // COMMUNITY_LANG_AU
+#ifdef COMMUNITY_LANG_AV
+#define LANG_CODE_AV 0x6176 //!<'av'
+#endif // COMMUNITY_LANG_AV
+#ifdef COMMUNITY_LANG_AW
+#define LANG_CODE_AW 0x6177 //!<'aw'
+#endif // COMMUNITY_LANG_AW
+#ifdef COMMUNITY_LANG_AX
+#define LANG_CODE_AX 0x6178 //!<'ax'
+#endif // COMMUNITY_LANG_AX
+#ifdef COMMUNITY_LANG_AY
+#define LANG_CODE_AY 0x6179 //!<'ay'
+#endif // COMMUNITY_LANG_AY
+#ifdef COMMUNITY_LANG_AZ
+#define LANG_CODE_AZ 0x617a //!<'az'
+#endif // COMMUNITY_LANG_AZ
+*/
+
 //Use the 3 lines below as a template and replace 'QR', '0X7172' and 'qr'
 //#ifdef COMMUNITY_LANG_QR
 //#define LANG_CODE_QR 0x7172 //!<'qr'

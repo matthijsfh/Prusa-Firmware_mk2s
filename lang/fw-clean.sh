@@ -53,6 +53,9 @@ rm_if_exists lang.hex
 #Dutch
 rm_if_exists firmware_nl.hex
 
+rm firmware_a*.hex
+rm update_lang_a*.out
+
 #Use the 2 lines below as a template and replace 'qr'
 ##New language
 #rm_if_exists firmware_qr.hex

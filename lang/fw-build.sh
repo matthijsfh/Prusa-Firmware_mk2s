@@ -171,6 +171,188 @@ else
   if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
  fi
 
+#aa
+ if [ -e lang_aa.bin ]; then
+  echo -n " AA  : " >&2
+  ./update_lang.sh aa 2>./update_lang_aa.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ab.bin ]; then
+  echo -n " AB  : " >&2
+  ./update_lang.sh ab 2>./update_lang_ab.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ac.bin ]; then
+  echo -n " AC  : " >&2
+  ./update_lang.sh ac 2>./update_lang_ac.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ad.bin ]; then
+  echo -n " AD  : " >&2
+  ./update_lang.sh ad 2>./update_lang_ad.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ae.bin ]; then
+  echo -n " AE  : " >&2
+  ./update_lang.sh ae 2>./update_lang_ae.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_af.bin ]; then
+  echo -n " AF  : " >&2
+  ./update_lang.sh af 2>./update_lang_af.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ag.bin ]; then
+  echo -n " AG  : " >&2
+  ./update_lang.sh ag 2>./update_lang_ag.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ah.bin ]; then
+  echo -n " AH  : " >&2
+  ./update_lang.sh ah 2>./update_lang_ah.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ai.bin ]; then
+  echo -n " AI  : " >&2
+  ./update_lang.sh ai 2>./update_lang_ai.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_aj.bin ]; then
+  echo -n " AJ  : " >&2
+  ./update_lang.sh aj 2>./update_lang_aj.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ak.bin ]; then
+  echo -n " AK  : " >&2
+  ./update_lang.sh ak 2>./update_lang_ak.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_al.bin ]; then
+  echo -n " AL  : " >&2
+  ./update_lang.sh al 2>./update_lang_al.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_am.bin ]; then
+  echo -n " AM  : " >&2
+  ./update_lang.sh am 2>./update_lang_am.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_an.bin ]; then
+  echo -n " AN  : " >&2
+  ./update_lang.sh an 2>./update_lang_an.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ao.bin ]; then
+  echo -n " AO  : " >&2
+  ./update_lang.sh ao 2>./update_lang_ao.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ap.bin ]; then
+  echo -n " AP  : " >&2
+  ./update_lang.sh ap 2>./update_lang_ap.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_aq.bin ]; then
+  echo -n " AQ  : " >&2
+  ./update_lang.sh aq 2>./update_lang_aq.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ar.bin ]; then
+  echo -n " AR  : " >&2
+  ./update_lang.sh ar 2>./update_lang_ar.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_as.bin ]; then
+  echo -n " AS  : " >&2
+  ./update_lang.sh as 2>./update_lang_as.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_at.bin ]; then
+  echo -n " AT  : " >&2
+  ./update_lang.sh at 2>./update_lang_at.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_au.bin ]; then
+  echo -n " AU  : " >&2
+  ./update_lang.sh au 2>./update_lang_au.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_av.bin ]; then
+  echo -n " AV  : " >&2
+  ./update_lang.sh av 2>./update_lang_av.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_aw.bin ]; then
+  echo -n " AW  : " >&2
+  ./update_lang.sh aw 2>./update_lang_aw.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ax.bin ]; then
+  echo -n " AX  : " >&2
+  ./update_lang.sh ax 2>./update_lang_ax.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_ay.bin ]; then
+  echo -n " AY  : " >&2
+  ./update_lang.sh ay 2>./update_lang_ay.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
+#aa
+ if [ -e lang_az.bin ]; then
+  echo -n " AZ  : " >&2
+  ./update_lang.sh az 2>./update_lang_az.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
+
 #Use the 6 lines below as a template and replace 'qr' and 'New language'
 #New language
 # if [ -e lang_qr.bin ]; then
@@ -193,6 +375,33 @@ if [ -e lang_pl.bin ]; then cat lang_pl.bin >> lang.bin; fi
 #Community language support
 # Dutch
 if [ -e lang_nl.bin ]; then cat lang_nl.bin >> lang.bin; fi
+
+if [ -e lang_aa.bin ]; then cat lang_aa.bin >> lang.bin; fi
+if [ -e lang_ab.bin ]; then cat lang_ab.bin >> lang.bin; fi
+if [ -e lang_ac.bin ]; then cat lang_ac.bin >> lang.bin; fi
+if [ -e lang_ad.bin ]; then cat lang_ad.bin >> lang.bin; fi
+if [ -e lang_ae.bin ]; then cat lang_ae.bin >> lang.bin; fi
+if [ -e lang_af.bin ]; then cat lang_af.bin >> lang.bin; fi
+if [ -e lang_ag.bin ]; then cat lang_ag.bin >> lang.bin; fi
+if [ -e lang_ah.bin ]; then cat lang_ah.bin >> lang.bin; fi
+if [ -e lang_ai.bin ]; then cat lang_ai.bin >> lang.bin; fi
+if [ -e lang_aj.bin ]; then cat lang_aj.bin >> lang.bin; fi
+if [ -e lang_ak.bin ]; then cat lang_ak.bin >> lang.bin; fi
+if [ -e lang_al.bin ]; then cat lang_al.bin >> lang.bin; fi
+if [ -e lang_am.bin ]; then cat lang_am.bin >> lang.bin; fi
+if [ -e lang_an.bin ]; then cat lang_an.bin >> lang.bin; fi
+if [ -e lang_ao.bin ]; then cat lang_ao.bin >> lang.bin; fi
+if [ -e lang_ap.bin ]; then cat lang_ap.bin >> lang.bin; fi
+if [ -e lang_aq.bin ]; then cat lang_aq.bin >> lang.bin; fi
+if [ -e lang_ar.bin ]; then cat lang_ar.bin >> lang.bin; fi
+if [ -e lang_as.bin ]; then cat lang_as.bin >> lang.bin; fi
+if [ -e lang_at.bin ]; then cat lang_at.bin >> lang.bin; fi
+if [ -e lang_au.bin ]; then cat lang_au.bin >> lang.bin; fi
+if [ -e lang_av.bin ]; then cat lang_av.bin >> lang.bin; fi
+if [ -e lang_aw.bin ]; then cat lang_aw.bin >> lang.bin; fi
+if [ -e lang_ax.bin ]; then cat lang_ax.bin >> lang.bin; fi
+if [ -e lang_ay.bin ]; then cat lang_ay.bin >> lang.bin; fi
+if [ -e lang_az.bin ]; then cat lang_az.bin >> lang.bin; fi
 
 #Use the 2 lines below as a template and replace 'qr'
 ## New language

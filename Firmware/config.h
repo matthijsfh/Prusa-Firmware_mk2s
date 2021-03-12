@@ -70,6 +70,37 @@
 
 //Community language support
 #define COMMUNITY_LANG_NL // Community Dutch language
+#define COMMUNITY_LANG_AA
+#define COMMUNITY_LANG_AB
+#define COMMUNITY_LANG_AC
+#define COMMUNITY_LANG_AD
+#define COMMUNITY_LANG_AE
+#define COMMUNITY_LANG_AF
+#define COMMUNITY_LANG_AG
+
+
+#define COMMUNITY_LANG_AH
+#define COMMUNITY_LANG_AI
+#define COMMUNITY_LANG_AJ
+#define COMMUNITY_LANG_AK
+#define COMMUNITY_LANG_AL
+#define COMMUNITY_LANG_AM
+#define COMMUNITY_LANG_AN
+#define COMMUNITY_LANG_AO
+/*
+#define COMMUNITY_LANG_AP
+#define COMMUNITY_LANG_AQ
+#define COMMUNITY_LANG_AR
+#define COMMUNITY_LANG_AS
+#define COMMUNITY_LANG_AT
+#define COMMUNITY_LANG_AU
+#define COMMUNITY_LANG_AV
+#define COMMUNITY_LANG_AW
+#define COMMUNITY_LANG_AX
+#define COMMUNITY_LANG_AY
+#define COMMUNITY_LANG_AZ
+*/
+
 //#define COMMUNITY_LANG_QR // Community new language //..use this as a template and replace 'QR'
 
 #if defined(COMMUNITY_LANG_NL) //|| defined(COMMUNITY_LANG_QR) //..use last part as a template and replace 'QR'

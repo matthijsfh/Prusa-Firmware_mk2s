@@ -46,6 +46,32 @@ lang_code_hex_data()
 #Community language support
 #Dutch
   *nl*) echo '\x6c\x6e' ;;
+  *aa*) echo '\x61\x61' ;;
+  *ab*) echo '\x62\x61' ;;
+  *ac*) echo '\x63\x61' ;;
+  *ad*) echo '\x64\x61' ;;
+  *ae*) echo '\x65\x61' ;;
+  *af*) echo '\x66\x61' ;;
+  *ag*) echo '\x67\x61' ;;
+  *ah*) echo '\x68\x61' ;;
+  *ai*) echo '\x69\x61' ;;
+  *aj*) echo '\x6a\x61' ;;
+  *ak*) echo '\x6b\x61' ;;
+  *al*) echo '\x6c\x61' ;;
+  *am*) echo '\x6d\x61' ;;
+  *an*) echo '\x6e\x61' ;;
+  *ao*) echo '\x6f\x61' ;;
+  *ap*) echo '\x70\x61' ;;
+  *aq*) echo '\x71\x61' ;;
+  *ar*) echo '\x72\x61' ;;
+  *as*) echo '\x73\x61' ;;
+  *at*) echo '\x74\x61' ;;
+  *au*) echo '\x75\x61' ;;
+  *av*) echo '\x76\x61' ;;
+  *aw*) echo '\x77\x61' ;;
+  *ax*) echo '\x78\x61' ;;
+  *ay*) echo '\x79\x61' ;;
+  *az*) echo '\x7a\x61' ;;
 #Use the 2 lines below as a template and replace 'qr' and `\x71\x72`
 ##New language
 #  *qr*) echo '\x71\x72' ;;

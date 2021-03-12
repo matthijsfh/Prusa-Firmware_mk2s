@@ -30,6 +30,33 @@ if [ "$COMMUNITY_LANG_NL" = "NL" ]; then
     ./lang-build.sh nl
 fi
 
+    ./lang-build.sh aa
+    ./lang-build.sh ab
+    ./lang-build.sh ac
+    ./lang-build.sh ad
+    ./lang-build.sh ae
+    ./lang-build.sh af
+    ./lang-build.sh ag
+    ./lang-build.sh ah
+    ./lang-build.sh ai
+    ./lang-build.sh aj
+    ./lang-build.sh ak
+    ./lang-build.sh al
+    ./lang-build.sh am
+    ./lang-build.sh an
+    ./lang-build.sh ao
+#    ./lang-build.sh ap
+#    ./lang-build.sh aq
+#    ./lang-build.sh ar
+#    ./lang-build.sh as
+#    ./lang-build.sh at
+#    ./lang-build.sh au
+#    ./lang-build.sh av
+#    ./lang-build.sh aw
+#    ./lang-build.sh ax
+#    ./lang-build.sh ay
+#    ./lang-build.sh az
+
 # Use the 5 lines below as a template and replace 'QR' and 'qr'
 #if [ "$COMMUNITY_LANG_QR" = "QR" ]; then
 #    echo "  $COMMUNITY_LANG_QR" >&2

@@ -49,7 +49,32 @@ clean_lang pl
 #Community language support
 #Dutch
 clean_lang nl
-
+clean_lang aa
+clean_lang ab
+clean_lang ac
+clean_lang ad
+clean_lang ae
+clean_lang af
+clean_lang ag
+clean_lang ah
+clean_lang ai
+clean_lang aj
+clean_lang ak
+clean_lang al
+clean_lang am
+clean_lang an
+clean_lang ao
+clean_lang ap
+clean_lang aq
+clean_lang ar
+clean_lang as
+clean_lang at
+clean_lang au
+clean_lang av
+clean_lang aw
+clean_lang ax
+clean_lang ay
+clean_lang az
 #Use the 2 lines below as a template and replace 'qr'
 ##New language
 #clean_lang_qr

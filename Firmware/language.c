@@ -215,6 +215,112 @@ const char* lang_get_name_by_code(uint16_t code)
 	case LANG_CODE_NL: return _n("Nederlands"); //community contribution
 #endif // COMMUNITY_LANG_NL
 
+#ifdef COMMUNITY_LANG_AA
+	case LANG_CODE_AA: return _n("AA"); //community contribution
+#endif // COMMUNITY_LANG_AA
+
+#ifdef COMMUNITY_LANG_AB
+	case LANG_CODE_AB: return _n("AB"); //community contribution
+#endif // COMMUNITY_LANG_AB
+
+#ifdef COMMUNITY_LANG_AC
+	case LANG_CODE_AC: return _n("AC"); //community contribution
+#endif // COMMUNITY_LANG_AC
+
+#ifdef COMMUNITY_LANG_AD
+	case LANG_CODE_AD: return _n("AD"); //community contribution
+#endif // COMMUNITY_LANG_AD
+
+#ifdef COMMUNITY_LANG_AE
+	case LANG_CODE_AE: return _n("AE"); //community contribution
+#endif // COMMUNITY_LANG_AE
+
+#ifdef COMMUNITY_LANG_AF
+	case LANG_CODE_AF: return _n("AF"); //community contribution
+#endif // COMMUNITY_LANG_AFA
+
+#ifdef COMMUNITY_LANG_AG
+	case LANG_CODE_AG: return _n("AG"); //community contribution
+#endif // COMMUNITY_LANG_AG
+
+
+#ifdef COMMUNITY_LANG_AH
+	case LANG_CODE_AH: return _n("AH"); //community contribution
+#endif // COMMUNITY_LANG_AH
+
+#ifdef COMMUNITY_LANG_AI
+	case LANG_CODE_AI: return _n("AI"); //community contribution
+#endif // COMMUNITY_LANG_AI
+
+#ifdef COMMUNITY_LANG_AJ
+	case LANG_CODE_AJ: return _n("AJ"); //community contribution
+#endif // COMMUNITY_LANG_AJ
+
+#ifdef COMMUNITY_LANG_AK
+	case LANG_CODE_AK: return _n("AK"); //community contribution
+#endif // COMMUNITY_LANG_AK
+
+#ifdef COMMUNITY_LANG_AL
+	case LANG_CODE_AL: return _n("AL"); //community contribution
+#endif // COMMUNITY_LANG_AL
+
+#ifdef COMMUNITY_LANG_AM
+	case LANG_CODE_AM: return _n("AM"); //community contribution
+#endif // COMMUNITY_LANG_AM
+
+#ifdef COMMUNITY_LANG_AN
+	case LANG_CODE_AN: return _n("AN"); //community contribution
+#endif // COMMUNITY_LANG_AN
+
+#ifdef COMMUNITY_LANG_AO
+	case LANG_CODE_AO: return _n("AO"); //community contribution
+#endif // COMMUNITY_LANG_AO
+/*
+#ifdef COMMUNITY_LANG_AP
+	case LANG_CODE_AP: return _n("AP"); //community contribution
+#endif // COMMUNITY_LANG_AP
+
+#ifdef COMMUNITY_LANG_AQ
+	case LANG_CODE_AQ: return _n("AQ"); //community contribution
+#endif // COMMUNITY_LANG_AQ
+
+#ifdef COMMUNITY_LANG_AR
+	case LANG_CODE_AR: return _n("AR"); //community contribution
+#endif // COMMUNITY_LANG_AR
+
+#ifdef COMMUNITY_LANG_AS
+	case LANG_CODE_AS: return _n("AS"); //community contribution
+#endif // COMMUNITY_LANG_AS
+
+#ifdef COMMUNITY_LANG_AT
+	case LANG_CODE_AT: return _n("AT"); //community contribution
+#endif // COMMUNITY_LANG_AT
+
+#ifdef COMMUNITY_LANG_AU
+	case LANG_CODE_AU: return _n("AU"); //community contribution
+#endif // COMMUNITY_LANG_AU
+
+#ifdef COMMUNITY_LANG_AV
+	case LANG_CODE_AV: return _n("AV"); //community contribution
+#endif // COMMUNITY_LANG_AV
+
+#ifdef COMMUNITY_LANG_AW
+	case LANG_CODE_AW: return _n("AW"); //community contribution
+#endif // COMMUNITY_LANG_AW
+
+#ifdef COMMUNITY_LANG_AX
+	case LANG_CODE_AX: return _n("AX"); //community contribution
+#endif // COMMUNITY_LANG_AX
+
+#ifdef COMMUNITY_LANG_AY
+	case LANG_CODE_AY: return _n("AY"); //community contribution
+#endif // COMMUNITY_LANG_AY
+
+#ifdef COMMUNITY_LANG_AZ
+	case LANG_CODE_AZ: return _n("AZ"); //community contribution
+#endif // COMMUNITY_LANG_AZ
+*/
+
 //Use the 3 lines below as a template and replace 'QR' and 'New language'
 //#ifdef COMMUNITY_LANG_QR 
 //	case LANG_CODE_QR: return _n("New language"); //community contribution
