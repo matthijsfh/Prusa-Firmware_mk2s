@@ -1188,9 +1188,9 @@ void setup()
 		printf_P(_n("_SEC_LANG_TABLE checksum = %04x\n"), sum);
 		sum = (sum >> 8) | ((sum & 0xff) << 8); //swap bytes
 		if (sum == header.checksum)
-			puts_P(_n("Checksum OK"), sum);
+			printf_P(_n("Checksum OK"), sum);
 		else
-			puts_P(_n("Checksum NG"), sum);
+			printf_P(_n("Checksum NG"), sum);
 	}
 	else
 		puts_P(_n("lang_get_header failed!"));
