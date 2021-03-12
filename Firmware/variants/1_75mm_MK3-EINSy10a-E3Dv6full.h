@@ -155,11 +155,11 @@
 #define MINTEMP_MINAMBIENT      10
 #define MINTEMP_MINAMBIENT_RAW  1002
 
-#define DEBUG_DCODE3
+//#define DEBUG_DCODE3
 
 //#define DEBUG_BUILD
-//#define DEBUG_SEC_LANG   //secondary language debug output at startup
-//#define DEBUG_XFLASH   //debug external spi flash
+#define DEBUG_SEC_LANG   //secondary language debug output at startup
+#define DEBUG_XFLASH   //debug external spi flash
 #ifdef DEBUG_BUILD
 //#define _NO_ASM
 #define DEBUG_DCODES //D codes

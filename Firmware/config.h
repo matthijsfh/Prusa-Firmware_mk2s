@@ -58,7 +58,8 @@
 //#define LANG_MODE              0 // primary language only
 #define LANG_MODE              1 // sec. language support
 
-#define LANG_SIZE_RESERVED     0x3000 // reserved space for secondary language (12288 bytes)
+#define LANG_SIZE_RESERVED     0x2ED0 // reserved space for secondary language (11984 bytes) minimum on 12 mart 2021
+//#define LANG_SIZE_RESERVED     0x3000 // reserved space for secondary language (12288 bytes)
 
 //Community language support
 #define COMMUNITY_LANG_NL // Community Dutch language
