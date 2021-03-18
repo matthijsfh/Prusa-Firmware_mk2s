@@ -6403,7 +6403,7 @@ Sigma_Exit:
         if(code_seen('D')) print_time_to_change_silent = code_value();
 #endif
         {
-            const char* _msg_mode_done_remain = _N("%S MODE: Percent done: %d; print time remaining in mins: %d; Change in mins: %d\n");
+            const char* _msg_mode_done_remain = _N("%S MODE: Percent done: %hhd; print time remaining in mins: %d; Change in mins: %d\n");
             printf_P(_msg_mode_done_remain, _N("NORMAL"), int8_t(print_percent_done_normal), print_time_remaining_normal, print_time_to_change_normal);
             printf_P(_msg_mode_done_remain, _N("SILENT"), int8_t(print_percent_done_silent), print_time_remaining_silent, print_time_to_change_silent);
         }
