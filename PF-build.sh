@@ -673,7 +673,11 @@ for v in ${VARIANTS[*]}
 do
 	VARIANT=$(basename "$v" ".h")
 	# Find firmware version in Configuration.h file and use it to generate the hex filename
-	FW=$(grep --max-count=1 "\bFW_VERSION\b" $SCRIPT_PATH/Firmware/Configuration.h | sed -e's/  */ /g'|cut -d '"' -f2|sed 's/\.//g')
+	FW_MAJOR=$(grep --max-count=1 "\bFW_MAJOR\b" $SCRIPT_PATH/Firmware/Configuration.h | sed -e's/  */ /g'|cut -d ' ' -f3)
+	FW_MINOR=$(grep --max-count=1 "\bFW_MINOR\b" $SCRIPT_PATH/Firmware/Configuration.h | sed -e's/  */ /g'|cut -d ' ' -f3)
+	FW_REVISION=$(grep --max-count=1 "\bFW_REVISION\b" $SCRIPT_PATH/Firmware/Configuration.h| sed -e's/  */ /g'|cut -d ' ' -f3)
+	FW="$FW_MAJOR$FW_MINOR$FW_REVISION"
+	#FW=$(grep --max-count=1 "\bFW_VERSION\b" $SCRIPT_PATH/Firmware/Configuration.h | sed -e's/  */ /g'|cut -d '"' -f2|sed 's/\.//g')
 	if [ -z "$BUILD" ] ; then	
 		# Find build version in Configuration.h file and use it to generate the hex filename
 		BUILD=$(grep --max-count=1 "\bFW_COMMIT_NR\b" $SCRIPT_PATH/Firmware/Configuration.h | sed -e's/  */ /g'|cut -d ' ' -f3)
@@ -686,13 +690,24 @@ do
 	# Check if the motherboard is an EINSY and if so only one hex file will generated
 	MOTHERBOARD=$(grep --max-count=1 "\bMOTHERBOARD\b" $SCRIPT_PATH/Firmware/variants/$VARIANT.h | sed -e's/  */ /g' |cut -d ' ' -f3)
 	# Check development status
-	DEV_CHECK=$(grep --max-count=1 "\bFW_VERSION\b" $SCRIPT_PATH/Firmware/Configuration.h | sed -e's/  */ /g'|cut -d '"' -f2|sed 's/\.//g'|cut -d '-' -f2)
+	FW_FLAV=$(grep --max-count=1 "//#define FW_FLAVOR\b" $SCRIPT_PATH/Firmware/Configuration.h|cut -d ' ' -f1)
+	if [[ "$FW_FLAV" != "//#define" ]] ; then
+		FW_FLAVOR=$(grep --max-count=1 "\bFW_FLAVOR\b" $SCRIPT_PATH/Firmware/Configuration.h| sed -e's/  */ /g'|cut -d ' ' -f3)
+		FW_FLAVERSION=$(grep --max-count=1 "\bFW_FLAVERSION\b" $SCRIPT_PATH/Firmware/Configuration.h| sed -e's/  */ /g'|cut -d ' ' -f3)
+		if [[ "$FW_FLAVOR" != "//#define FW_FLAVOR" ]] ; then
+			FW="$FW-$FW_FLAVOR"
+            DEV_CHECK="$FW_FLAVOR"
+			if [ ! -z "$FW_FLAVERSION" ] ; then
+				FW="$FW$FW_FLAVERSION"
+			fi
+		fi
+	fi
 	if [ -z "$DEV_STATUS_SELECTED" ] ; then
 		if [[ "$DEV_CHECK" == *"RC"* ]] ; then
 			DEV_STATUS="RC"
-		elif [[ "$DEV_CHECK" == "ALPHA" ]]; then
+		elif [[ "$DEV_CHECK" == *"ALPHA"* ]]; then
 			DEV_STATUS="ALPHA"
-		elif [[ "$DEV_CHECK" == "BETA" ]]; then
+		elif [[ "$DEV_CHECK" == *"BETA"* ]]; then
 			DEV_STATUS="BETA"
 		elif [[ "$DEV_CHECK" == "DEVEL" ]]; then
 			DEV_STATUS="DEVEL"
