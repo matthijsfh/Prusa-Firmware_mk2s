@@ -56,7 +56,7 @@
 #   Some may argue that this is only used by a script, BUT as soon someone accidentally or on purpose starts Arduino IDE
 #   it will use the default Arduino IDE folders and so can corrupt the build environment.
 #
-# Version: 1.0.6-Build_37
+# Version: 1.0.6-Build_38
 # Change log:
 # 12 Jan 2019, 3d-gussner, Fixed "compiler.c.elf.flags=-w -Os -Wl,-u,vfprintf -lprintf_flt -lm -Wl,--gc-sections" in 'platform.txt'
 # 16 Jan 2019, 3d-gussner, Build_2, Added development check to modify 'Configuration.h' to prevent unwanted LCD messages that Firmware is unknown
@@ -137,6 +137,7 @@
 #                          Add '-?' '-h' help option
 # 27 Jan 2021, 3d-gussner, Add `-c`, `-p` and `-n` options
 # 27 Feb 2021, 3d-gussner, Add './lang-community.sh' and update exits
+# 27 May 2021, 3d-gussner, Add Arduino boards 1.0.4 
 
 #### Start check if OSTYPE is supported
 OS_FOUND=$( command -v uname)
@@ -250,14 +251,16 @@ ARDUINO_ENV="1.8.5"
 BUILD_ENV="1.0.6"
 BOARD="prusa_einsy_rambo"
 BOARD_PACKAGE_NAME="PrusaResearch"
-BOARD_VERSION="1.0.3"
-#BOARD_URL="https://raw.githubusercontent.com/3d-gussner/Arduino_Boards/Prusa_Merge_v1.0.3/IDE_Board_Manager/package_prusa3d_index.json"
-BOARD_URL="https://raw.githubusercontent.com/prusa3d/Arduino_Boards/master/IDE_Board_Manager/package_prusa3d_index.json"
+BOARD_VERSION="1.0.4"
+BOARD_URL="https://raw.githubusercontent.com/3d-gussner/Arduino_Boards/v1.0.4/IDE_Board_Manager/package_prusa3d_index.json"
+#BOARD_URL="https://raw.githubusercontent.com/prusa3d/Arduino_Boards/master/IDE_Board_Manager/package_prusa3d_index.json"
 BOARD_FILENAME="prusa3dboards"
-#BOARD_FILE_URL="https://raw.githubusercontent.com/3d-gussner/Arduino_Boards/Prusa_Merge_v1.0.3/IDE_Board_Manager/prusa3dboards-1.0.3.tar.bz2"
-BOARD_FILE_URL="https://raw.githubusercontent.com/prusa3d/Arduino_Boards/master/IDE_Board_Manager/prusa3dboards-1.0.3.tar.bz2"
+BOARD_FILE_URL="https://raw.githubusercontent.com/3d-gussner/Arduino_Boards/v1.0.4/IDE_Board_Manager/prusa3dboards-1.0.4.tar.bz2"
+#BOARD_FILE_URL="https://raw.githubusercontent.com/prusa3d/Arduino_Boards/master/IDE_Board_Manager/prusa3dboards-1.0.3.tar.bz2"
 #PF_BUILD_FILE_URL="https://github.com/3d-gussner/PF-build-env-1/releases/download/$BUILD_ENV-WinLin/PF-build-env-WinLin-$BUILD_ENV.zip"
-PF_BUILD_FILE_URL="https://github.com/prusa3d/PF-build-env/releases/download/$BUILD_ENV-WinLin/PF-build-env-WinLin-$BUILD_ENV.zip"
+if [[ "$BOARD_VERSION" == "1.0.3" || "$BOARD_VERSION" == "1.0.2" || "$BOARD_VERSION" == "1.0.1" ]]; then
+    PF_BUILD_FILE_URL="https://github.com/prusa3d/PF-build-env/releases/download/$BUILD_ENV-WinLin/PF-build-env-WinLin-$BUILD_ENV.zip"
+fi
 LIB="PrusaLibrary"
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
@@ -403,18 +406,20 @@ if [[ ! -d "../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$P
 fi	
 
 # Download and extract Prusa Firmware specific library files
-if [ ! -f "PF-build-env-WinLin-$BUILD_ENV.zip" ]; then
-	echo "$(tput setaf 6)Downloading Prusa Firmware build environment...$(tput setaf 2)"
-	sleep 2
-	wget $PF_BUILD_FILE_URL || exit 11
-	echo "$(tput sgr 0)"
-fi
-if [ ! -e "../PF-build-env-$BUILD_ENV/PF-build-env-$BUILD_ENV-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor.txt" ]; then
-	echo "$(tput setaf 6)Unzipping Prusa Firmware build environment...$(tput setaf 2)"
-	sleep 2
-	unzip -o PF-build-env-WinLin-$BUILD_ENV.zip -d ../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor || exit 12
-	echo "# PF-build-env-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor-$BUILD_ENV" >> ../PF-build-env-$BUILD_ENV/PF-build-env-$BUILD_ENV-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor.txt
-	echo "$(tput sgr0)"
+if [[ "$BOARD_VERSION" == "1.0.3" || "$BOARD_VERSION" == "1.0.2" || "$BOARD_VERSION" == "1.0.1" ]]; then
+    if [ ! -f "PF-build-env-WinLin-$BUILD_ENV.zip" ]; then
+	    echo "$(tput setaf 6)Downloading Prusa Firmware build environment...$(tput setaf 2)"
+	    sleep 2
+	    wget $PF_BUILD_FILE_URL || exit 11
+	    echo "$(tput sgr 0)"
+    fi
+    if [ ! -e "../PF-build-env-$BUILD_ENV/PF-build-env-$BUILD_ENV-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor.txt" ]; then
+	    echo "$(tput setaf 6)Unzipping Prusa Firmware build environment...$(tput setaf 2)"
+	    sleep 2
+	    unzip -o PF-build-env-WinLin-$BUILD_ENV.zip -d ../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor || exit 12
+	    echo "# PF-build-env-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor-$BUILD_ENV" >> ../PF-build-env-$BUILD_ENV/PF-build-env-$BUILD_ENV-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor.txt
+	    echo "$(tput sgr0)"
+    fi
 fi
 
 # Check if User updated Arduino IDE 1.8.5 boardsmanager and tools
@@ -423,14 +428,16 @@ if [ -d "../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Proc
 	echo "Please don't update the 'Arduino AVR boards' as this will prevent running this script (tput setaf 2)"
 	sleep 2
 fi	
-if [ -d "../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/portable/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2" ]; then
-	echo "$(tput setaf 6)PrusaReasearch compatible tools have been manually updated...$(tput setaf 2)"
-	sleep 2
-	echo "$(tput setaf 6)Copying Prusa Firmware build environment to manually updated boards / tools...$(tput setaf 2)"
-	sleep 2
-	cp -f ../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/hardware/tools/avr/avr/lib/ldscripts/avr6.xn ../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/portable/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2/avr/lib/ldscripts/avr6.xn
-	echo "# PF-build-env-portable-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor-$BUILD_ENV" >> ../PF-build-env-$BUILD_ENV/PF-build-env-portable-$BUILD_ENV-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor.txt
-	echo "$(tput sgr0)"
+if [[ "$BOARD_VERSION" == "1.0.3" || "$BOARD_VERSION" == "1.0.2" || "$BOARD_VERSION" == "1.0.1" ]]; then
+    if [ -d "../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/portable/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2" ]; then
+	    echo "$(tput setaf 6)PrusaReasearch compatible tools have been manually updated...$(tput setaf 2)"
+	    sleep 2
+	    echo "$(tput setaf 6)Copying Prusa Firmware build environment to manually updated boards / tools...$(tput setaf 2)"
+	    sleep 2
+	    cp -f ../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/hardware/tools/avr/avr/lib/ldscripts/avr6.xn ../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/portable/packages/arduino/tools/avr-gcc/4.9.2-atmel3.5.4-arduino2/avr/lib/ldscripts/avr6.xn
+	    echo "# PF-build-env-portable-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor-$BUILD_ENV" >> ../PF-build-env-$BUILD_ENV/PF-build-env-portable-$BUILD_ENV-$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor.txt
+	    echo "$(tput sgr0)"
+    fi
 fi	
 if [ -d "../PF-build-env-$BUILD_ENV/$ARDUINO_ENV-$BOARD_VERSION-$TARGET_OS-$Processor/portable/packages/arduino/tools/avr-gcc/5.4.0-atmel3.6.1-arduino2" ]; then
 	echo "$(tput setaf 1)Arduino IDE tools have been updated manually to a non supported version!!!"
@@ -825,7 +832,7 @@ do
 		rm -r -f $BUILD_PATH/* || exit 36
 	fi
 
-	#$BUILD_ENV_PATH/arduino-builder -dump-prefs -debug-level 10 -compile -hardware $ARDUINO/hardware -hardware $ARDUINO/portable/packages -tools $ARDUINO/tools-builder -tools $ARDUINO/hardware/tools/avr -tools $ARDUINO/portable/packages -built-in-libraries $ARDUINO/libraries -libraries $ARDUINO/portable/sketchbook/libraries -fqbn=$BOARD_PACKAGE_NAME:avr:$BOARD -build-path=$BUILD_PATH -warnings=all $SCRIPT_PATH/Firmware/Firmware.ino || exit 30
+	$BUILD_ENV_PATH/arduino-builder -dump-prefs -debug-level 10 -compile -hardware $ARDUINO/hardware -hardware $ARDUINO/portable/packages -tools $ARDUINO/tools-builder -tools $ARDUINO/hardware/tools/avr -tools $ARDUINO/portable/packages -built-in-libraries $ARDUINO/libraries -libraries $ARDUINO/portable/sketchbook/libraries -fqbn=$BOARD_PACKAGE_NAME:avr:$BOARD -build-path=$BUILD_PATH -warnings=all $SCRIPT_PATH/Firmware/Firmware.ino || exit 30
 	$BUILD_ENV_PATH/arduino-builder -compile -hardware $ARDUINO/hardware -hardware $ARDUINO/portable/packages -tools $ARDUINO/tools-builder -tools $ARDUINO/hardware/tools/avr -tools $ARDUINO/portable/packages -built-in-libraries $ARDUINO/libraries -libraries $ARDUINO/portable/sketchbook/libraries -fqbn=$BOARD_PACKAGE_NAME:avr:$BOARD -build-path=$BUILD_PATH -warnings=all $SCRIPT_PATH/Firmware/Firmware.ino || exit 30
 	echo "$(tput sgr 0)"
 
