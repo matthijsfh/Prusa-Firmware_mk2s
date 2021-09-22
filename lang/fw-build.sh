@@ -170,6 +170,12 @@ else
   ./update_lang.sh nl 2>./update_lang_nl.out 1>/dev/null
   if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
  fi
+#Dutch
+ if [ -e lang_sv.bin ]; then
+  echo -n " Swedish  : " >&2
+  ./update_lang.sh sv 2>./update_lang_sv.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
 
 #Use the 6 lines below as a template and replace 'qr' and 'New language'
 #New language
@@ -193,6 +199,8 @@ if [ -e lang_pl.bin ]; then cat lang_pl.bin >> lang.bin; fi
 #Community language support
 # Dutch
 if [ -e lang_nl.bin ]; then cat lang_nl.bin >> lang.bin; fi
+# Swedish
+if [ -e lang_sv.bin ]; then cat lang_sv.bin >> lang.bin; fi
 
 #Use the 2 lines below as a template and replace 'qr'
 ## New language

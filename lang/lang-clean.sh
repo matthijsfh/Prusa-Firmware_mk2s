@@ -49,7 +49,8 @@ clean_lang pl
 #Community language support
 #Dutch
 clean_lang nl
-
+#Swedish
+clean_lang sv
 #Use the 2 lines below as a template and replace 'qr'
 ##New language
 #clean_lang_qr
