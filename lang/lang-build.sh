@@ -47,7 +47,7 @@ lang_code_hex_data()
 #Dutch
   *nl*) echo '\x6c\x6e' ;;
 #Swedish
-  *sv*) echo '\x76\73' ;;
+  *sv*) echo '\x76\x73' ;;
 #Use the 2 lines below as a template and replace 'qr' and `\x71\x72`
 ##New language
 #  *qr*) echo '\x71\x72' ;;

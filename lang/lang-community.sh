@@ -35,7 +35,7 @@ if [ "$COMMUNITY_LANG_NL" = "NL" ]; then
     ./lang-build.sh nl
 fi
 #Swedish
-if [ "$COMMUNITY_LANG_QR" = "SV" ]; then
+if [ "$COMMUNITY_LANG_SV" = "SV" ]; then
     echo "  $COMMUNITY_LANG_SV" >&2
     echo
     ./lang-build.sh sv
