@@ -27,6 +27,8 @@ if [ "$LNG" = "all" ]; then
  ./lang-export.sh nl
 #Swedish
  ./lang-export.sh sv
+#Danish
+ ./lang-export.sh da
 #Use the 2 lines below as a template and replace 'qr' and 'New language'
 ##New language
 # ./lang-export.sh qr

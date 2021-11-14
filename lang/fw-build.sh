@@ -176,6 +176,12 @@ else
   ./update_lang.sh sv 2>./update_lang_sv.out 1>/dev/null
   if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
  fi
+Danish
+ if [ -e lang_da.bin ]; then
+  echo -n " Danish : " >&2
+  ./update_lang.sh da 2>./update_lang_da.out 1>/dev/null
+  if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
+ fi
 
 #Use the 6 lines below as a template and replace 'qr' and 'New language'
 #New language
@@ -201,6 +207,8 @@ if [ -e lang_pl.bin ]; then cat lang_pl.bin >> lang.bin; fi
 if [ -e lang_nl.bin ]; then cat lang_nl.bin >> lang.bin; fi
 # Swedish
 if [ -e lang_sv.bin ]; then cat lang_sv.bin >> lang.bin; fi
+# Danish
+if [ -e lang_da.bin ]; then cat lang_da.bin >> lang.bin; fi
 
 #Use the 2 lines below as a template and replace 'qr'
 ## New language

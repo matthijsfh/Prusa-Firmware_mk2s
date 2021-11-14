@@ -63,9 +63,10 @@
 //Community language support
 #define COMMUNITY_LANG_NL // Community Dutch language
 #define COMMUNITY_LANG_SV // Community Swedish language
+#define COMMUNITY_LANG_DA // Community Danish language
 //#define COMMUNITY_LANG_QR // Community new language //..use this as a template and replace 'QR'
 
-#if (defined(COMMUNITY_LANG_NL) || defined(COMMUNITY_LANG_SV)) //|| defined(COMMUNITY_LANG_QR) //..use last part as a template and replace 'QR'
+#if (defined(COMMUNITY_LANG_NL) || defined(COMMUNITY_LANG_SV) || defined(COMMUNITY_LANG_DA)) //|| defined(COMMUNITY_LANG_QR) //..use last part as a template and replace 'QR'
 #define COMMUNITY_LANG_SUPPORT
 #endif
 

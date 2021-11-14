@@ -71,6 +71,8 @@ cat lang_add.txt | sed 's/^/"/;s/$/"/' | while read new_s; do
 		insert_xx "$new_s" 'nl'
 #Swedish
 		insert_xx "$new_s" 'sv'
+#Danish
+		insert_xx "$new_s" 'da'
 #Use the 2 lines below as a template and replace 'qr'
 ##New language
 #		insert_xx "$new_s" 'qr'

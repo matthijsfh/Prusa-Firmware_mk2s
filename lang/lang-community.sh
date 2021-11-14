@@ -17,6 +17,10 @@ export NL=$COMMUNITY_LANG_NL
 COMMUNITY_LANG_SV=$(grep --max-count=1 "^#define COMMUNITY_LANG_SV" $ROOT_PATH/Firmware/config.h| cut -d '_' -f3 |cut -d ' ' -f1)
 export SV=$COMMUNITY_LANG_SV
 
+# Check comminity language DA = Danish
+COMMUNITY_LANG_DA=$(grep --max-count=1 "^#define COMMUNITY_LANG_DA" $ROOT_PATH/Firmware/config.h| cut -d '_' -f3 |cut -d ' ' -f1)
+export DA=$COMMUNITY_LANG_DA
+
 # Use the lines below as a template and replace 'QR' and 'new language'
 # Check comminity language QR = new language
 #COMMUNITY_LANG_QR=$(grep --max-count=1 "^#define COMMUNITY_LANG_QR" $ROOT_PATH/Firmware/config.h| cut -d '_' -f3 |cut -d ' ' -f1)
@@ -39,6 +43,12 @@ if [ "$COMMUNITY_LANG_SV" = "SV" ]; then
     echo "  $COMMUNITY_LANG_SV" >&2
     echo
     ./lang-build.sh sv
+fi
+#Danish
+if [ "$COMMUNITY_LANG_DA" = "DA" ]; then
+    echo "  $COMMUNITY_LANG_DA" >&2
+    echo
+    ./lang-build.sh da
 fi
 
 # Use the 5 lines below as a template and replace 'QR' and 'qr'
