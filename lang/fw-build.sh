@@ -170,7 +170,7 @@ else
   ./update_lang.sh nl 2>./update_lang_nl.out 1>/dev/null
   if [ $? -eq 0 ]; then echo 'OK' >&2; else echo 'NG!' >&2; fi
  fi
-#Dutch
+#Swedish
  if [ -e lang_sv.bin ]; then
   echo -n " Swedish  : " >&2
   ./update_lang.sh sv 2>./update_lang_sv.out 1>/dev/null
