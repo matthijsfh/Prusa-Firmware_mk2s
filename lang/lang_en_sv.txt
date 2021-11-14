@@ -966,7 +966,7 @@
 "Select nozzle preheat temperature which matches your material."
 "\x00"
 
-#MSG_SET_TEMPERATURE c=19
+#MSG_SET_TEMPERATURE c=20
 "Set temperature:"
 "\x00"
 

@@ -724,7 +724,7 @@
 #MSG_SEL_PREHEAT_TEMP c=20 r=6
 "Select nozzle preheat temperature which matches your material."
 
-#MSG_SET_TEMPERATURE c=19
+#MSG_SET_TEMPERATURE c=20
 "Set temperature:"
 
 #MSG_SETTINGS c=18
