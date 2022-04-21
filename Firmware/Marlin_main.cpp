@@ -2714,6 +2714,13 @@ void gcode_M105(uint8_t extruder)
     SERIAL_PROTOCOL(getHeaterPower(extruder));
 #endif
 
+        SERIAL_PROTOCOLPGM(" Tm:");
+        SERIAL_PROTOCOL(nozzle_sim.T - K_SHIFT);
+        SERIAL_PROTOCOLPGM(" Th:");
+        SERIAL_PROTOCOL(nozzle_sim.Th - K_SHIFT);
+        SERIAL_PROTOCOLPGM(" Ts:");
+        SERIAL_PROTOCOL(nozzle_sim.Ts - K_SHIFT);
+
     SERIAL_PROTOCOLPGM(" B@:");
 #ifdef BED_WATTS
     SERIAL_PROTOCOL((BED_WATTS * getHeaterPower(-1))/127);

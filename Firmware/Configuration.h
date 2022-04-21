@@ -19,7 +19,7 @@ extern PGM_P sPrinterName;
 #define FW_MAJOR 3
 #define FW_MINOR 11
 #define FW_REVISION 0
-//#define FW_FLAVOR RC      //uncomment if DEBUG, DEVEL, APLHA, BETA or RC
+//#define FW_FLAVOR RC      //uncomment if DEBUG, DEVEL, ALPHA, BETA or RC
 #define FW_FLAVERSION 1     //uncomment if FW_FLAVOR is defined and versioning is needed.
 #ifndef FW_FLAVOR
     #define FW_VERSION STR(FW_MAJOR) "." STR(FW_MINOR) "." STR(FW_REVISION)
@@ -539,7 +539,7 @@ your extruder heater takes 2 minutes to hit the target on heating.
 // (unsigned char*)EEPROM_CALIBRATION_STATUS
 enum CalibrationStatus
 {
-	// Freshly assembled, needs to peform a self-test and the XYZ calibration.
+	// Freshly assembled, needs to perform a self-test and the XYZ calibration.
 	CALIBRATION_STATUS_ASSEMBLED = 255,
 
 	// For the wizard: self test has been performed, now the XYZ calibration is needed.

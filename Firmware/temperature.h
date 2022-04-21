@@ -29,6 +29,9 @@
 
 #include "config.h"
 
+#include "sim_nozzle.h"
+
+extern sim_nozzle_t nozzle_sim;
 
 #ifdef SYSTEM_TIMER_2
 

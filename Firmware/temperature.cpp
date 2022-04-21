@@ -49,6 +49,8 @@
 
 #include "config.h"
 
+sim_nozzle_t nozzle_sim;
+
 //===========================================================================
 //=============================public variables============================
 //===========================================================================
@@ -765,6 +767,29 @@ void manage_heater()
       soft_pwm[e] = 0;
     }
   } // End extruder for loop
+
+  static unsigned long old_sim_ts = 0;
+  unsigned long new_sim_ts = _millis();
+  if (old_sim_ts == 0) {
+    sim_nozzle_init(&nozzle_sim);
+    //SERIAL_ECHOLN("sim init");
+  } else {
+#if 0    
+    nozzle_sim.Ta = current_temperature_ambient + K_SHIFT;
+    float sim_delta = (new_sim_ts - old_sim_ts) * 0.001f;
+    nozzle_sim.P = (soft_pwm[0] << 0) * 38. / 255.;
+    //printf("sim cycle %f %f\n", sim_delta, nozzle_sim.P);
+    sim_nozzle_cycle(&nozzle_sim, sim_delta);
+#else
+    unsigned long delta_ms = (new_sim_ts - old_sim_ts);
+    nozzle_sim.Ta = current_temperature_ambient + K_SHIFT;
+    nozzle_sim.P = (soft_pwm[0] << 0) * 38. / 255.;
+    for(int i = 0; i != delta_ms; ++i) {
+      sim_nozzle_cycle(&nozzle_sim, 0.001);
+    }
+#endif
+  }
+  old_sim_ts = new_sim_ts;
 
 #define FAN_CHECK_PERIOD 5000 //5s
 #define FAN_CHECK_DURATION 100 //100ms
