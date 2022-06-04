@@ -455,8 +455,8 @@
 "Filamento"
 
 #MSG_WIZARD_XYZ_CAL c=20 r=8
-"I will run xyz calibration now. It will take approx. 12 mins."
-"Adesso avviero una Calibrazione XYZ. Puo durare circa 12 min."
+"I will run xyz calibration now. It will take approx. 24 mins."
+"Adesso avviero una Calibrazione XYZ. Puo durare circa 24 min."
 
 #MSG_WIZARD_Z_CAL c=20 r=8
 "I will run z calibration now."

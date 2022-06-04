@@ -455,7 +455,7 @@
 "\x00"
 
 #MSG_WIZARD_XYZ_CAL c=20 r=8
-"I will run xyz calibration now. It will take approx. 12 mins."
+"I will run xyz calibration now. It will take approx. 24 mins."
 "\x00"
 
 #MSG_WIZARD_Z_CAL c=20 r=8

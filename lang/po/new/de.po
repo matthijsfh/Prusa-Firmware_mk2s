@@ -587,8 +587,8 @@ msgstr ""
 
 # MSG_WIZARD_XYZ_CAL c=20 r=8
 #: ultralcd.cpp:4937
-msgid "I will run xyz calibration now. It will take approx. 12 mins."
-msgstr "Ich werde jetzt die XYZ-Kalibrierung durchführen. Es wird ca. 12 Minuten dauern."
+msgid "I will run xyz calibration now. It will take approx. 24 mins."
+msgstr "Ich werde jetzt die XYZ-Kalibrierung durchführen. Es wird ca. 24 Minuten dauern."
 
 # MSG_WIZARD_Z_CAL c=20 r=8
 #: ultralcd.cpp:4945

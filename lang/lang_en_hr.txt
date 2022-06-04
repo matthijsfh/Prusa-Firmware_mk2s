@@ -455,8 +455,8 @@
 "\x00"
 
 #MSG_WIZARD_XYZ_CAL c=20 r=8
-"I will run xyz calibration now. It will take approx. 12 mins."
-"Sada cu pokrenuti xyz kalibraciju. Trebat ce cca. 12 min."
+"I will run xyz calibration now. It will take approx. 24 mins."
+"Sada cu pokrenuti xyz kalibraciju. Trebat ce cca. 24 min."
 
 #MSG_WIZARD_Z_CAL c=20 r=8
 "I will run z calibration now."

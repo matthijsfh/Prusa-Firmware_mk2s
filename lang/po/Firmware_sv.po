@@ -587,8 +587,8 @@ msgstr "Mata ut filament"
 
 # MSG_WIZARD_XYZ_CAL c=20 r=8
 #: ultralcd.cpp:4937
-msgid "I will run xyz calibration now. It will take approx. 12 mins."
-msgstr "Jag kommer att utföra en xyz-kalibrering nu. Det kommer att ta ca. 12 min."
+msgid "I will run xyz calibration now. It will take approx. 24 mins."
+msgstr "Jag kommer att utföra en xyz-kalibrering nu. Det kommer att ta ca. 24 min."
 
 # MSG_WIZARD_Z_CAL c=20 r=8
 #: ultralcd.cpp:4945
