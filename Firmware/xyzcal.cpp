@@ -137,7 +137,10 @@ pos_mm_t pos_2_mm(float pos){
 
 void xyzcal_meassure_enter(void)
 {
-	DBG(_n("xyzcal_meassure_enter\n"));
+	DBG(_n("xyzcal_measure_center\n"));
+	lcd_set_cursor(4,3);
+	lcd_printf_P(PSTR("Measure center  ")); ////MSG_MEASURE_CENTER c=16
+
 	disable_heater();
 	DISABLE_TEMPERATURE_INTERRUPT();
 #if (defined(FANCHECK) && defined(TACH_1) && (TACH_1 >-1))
@@ -155,6 +158,8 @@ void xyzcal_meassure_enter(void)
 void xyzcal_meassure_leave(void)
 {
 	DBG(_n("xyzcal_meassure_leave\n"));
+	lcd_set_cursor(4,3);
+	lcd_printf_P(PSTR("                ")); ////MSG_POINT_FINISHED c=16
     planner_abort_hard();
 	ENABLE_TEMPERATURE_INTERRUPT();
 #if (defined(FANCHECK) && defined(TACH_1) && (TACH_1 >-1))
@@ -569,6 +574,8 @@ void xyzcal_scan_pixels_32x32_Zhop(int16_t cx, int16_t cy, int16_t min_z, int16_
 			sm4_set_dir(X_AXIS, d);
             //@size=242
 			DBG(_n("%d\n"), 64 - (r * 2 + d)); ///< to keep OctoPrint connection alive
+			lcd_set_cursor(4,3);
+			lcd_printf_P(PSTR("Countdown: %d "),64 - (r * 2 + d)); ////MSG_COUNTDOWN c=14
 
 			for (uint8_t c = 0; c < 32; c++){ ///< X axis
 				/// move to the next point and move Z up diagonally (if needed)
