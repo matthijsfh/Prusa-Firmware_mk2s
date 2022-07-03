@@ -6299,7 +6299,7 @@ void lcd_print_stop()
     lcd_commands_step = 0;
     lcd_commands_type = LcdCommands::Idle;
 
-    lcd_cooldown(); //turns off heaters and fan; goes to status screen.
+    lcd_return_to_status();
 
     if (axis_known_position[Z_AXIS]) {
         current_position[Z_AXIS] += Z_CANCEL_LIFT;
@@ -6315,7 +6315,17 @@ void lcd_print_stop()
     }
     st_synchronize();
 
-    if (MMU2::mmu2.Enabled()) MMU2::mmu2.unload(); //M702 C
+    if (MMU2::mmu2.Enabled())
+    {
+        if (isPrintPaused)
+        {
+            // Restore temperature saved in ram after pausing print
+            restore_extruder_temperture_from_ram();
+        }
+        MMU2::mmu2.unload(); //M702 C
+    }
+
+    lcd_cooldown(); //turns off heaters and fan; goes to status screen.
 
     finishAndDisableSteppers(); //M84
 
