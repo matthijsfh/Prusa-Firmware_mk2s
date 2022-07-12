@@ -10,7 +10,7 @@
 # 3. Install latest updates with 'sudo apt-get upgrade'
 # 
 #
-# Version: 1.0.0-Build_13
+# Version: 1.0.0-Build_18
 # Change log:
 # 11 Feb 2021, 3d-gussner, Inital
 # 11 Feb 2021, 3d-gussner, Optional flags to check for updates
@@ -22,6 +22,9 @@
 # 18 Jun 2021, 3d-gussner, Added -g 3 and 4 for more details extrusion lines
 # 18 Jun 2021, 3d-gussner, Check for updates is default. Fix update if internet connection is lost.
 # 21 Jun 2021, 3d-gussner, Change board_flash argument to 'y' and firmware_version to 'f'
+# 25 Jan 2022, 3d-gussner, Allow upper and lower case in selection
+#                          Add update option to release OR devel
+# 01 Jul 2022, 3d-gussner, Limit atmegaMK404 boards mem to 8,16,32
 
 #### Start: Failures
 failures()
@@ -33,7 +36,7 @@ case "$1" in
     4) echo "$(tput setaf 1)Some packages are missing please install these!$(tput sgr0)" ; exit 4 ;;
     5) echo "$(tput setaf 1)Wrong printer chosen.$(tput sgr0) Following Printers are supported: MK25, MK25S, MK3 and MK3S" ; exit 5 ;;
     6) echo "$(tput setaf 1)Unsupported board flash size chosen.$(tput sgr0) Only '256', '384', '512', '1024' and '32M' are allowed." ; exit 6 ;;
-    7) echo "$(tput setaf 1)Unsupported board mem size chosen.$(tput sgr0) Only '8', '16', '32' and '64' are allowed." ; exit 7 ;;
+    7) echo "$(tput setaf 1)Unsupported board mem size chosen.$(tput sgr0) Only '8', '16' and '32' are allowed." ; exit 7 ;;
     8) echo "$(tput setaf 1)No firmware version file selected!$(tput sgr0)" ; echo "Add argument -f with path and hex filename to start MK404" ; exit 8 ;;
     9) echo "$(tput setaf 1)Tried to determine MK404 printer from hex file, but failed!$(tput sgr0)" ; "Add argument -p with 'MK25', 'MK25S', 'MK3' or 'MK3S' to start MK404" ; exit 9 ;;
     10) echo "$(tput setaf 1)Missing printer$(tput sgr0)" ; exit 10 ;;
@@ -74,7 +77,7 @@ while getopts c:f:g:m:n:p:u:x:y:?h flag
 # '?' 'h' argument usage and help
 if [ "$help_flag" == "1" ] ; then
 echo "***************************************"
-echo "* MK404-build.sh Version: 1.0.0-Build_13 *"
+echo "* MK404-build.sh Version: 1.0.0-Build_18 *"
 echo "***************************************"
 echo "Arguments:"
 echo "$(tput setaf 2)-c$(tput sgr0) Check for update"
@@ -98,8 +101,8 @@ echo "  -g : '$(tput setaf 2)0$(tput sgr0)' no, '$(tput setaf 2)1$(tput sgr0)' l
 echo "  -m : '$(tput setaf 2)0$(tput sgr0)' no, '$(tput setaf 2)1$(tput sgr0)' yes '$(tput setaf 2)2$(tput sgr0)' with MMU2"
 echo "  -n : '$(tput setaf 2)0$(tput sgr0)' no, '$(tput setaf 2)1$(tput sgr0)' yes"
 echo "  -p : '$(tput setaf 2)MK25$(tput sgr0)', '$(tput setaf 2)MK25S$(tput sgr0)', '$(tput setaf 2)MK3$(tput sgr0)' or '$(tput setaf 2)MK3S$(tput sgr0)'"
-echo "  -u : '$(tput setaf 2)0$(tput sgr0)' no, '$(tput setaf 2)1$(tput sgr0)' yes '"
-echo "  -x : '$(tput setaf 2)8$(tput sgr0)',$(tput setaf 2)16$(tput sgr0)',$(tput setaf 2)32$(tput sgr0)' or '$(tput setaf 2)64$(tput sgr0)' Kb."
+echo "  -u : '$(tput setaf 2)0$(tput sgr0)' no, '$(tput setaf 2)1$(tput sgr0)' release ', '$(tput setaf 2)2$(tput sgr0)' devel '"
+echo "  -x : '$(tput setaf 2)8$(tput sgr0)',$(tput setaf 2)16$(tput sgr0)' or $(tput setaf 2)32$(tput sgr0)' Kb."
 echo "  -y : '$(tput setaf 2)256$(tput sgr0)','$(tput setaf 2)384$(tput sgr0)','$(tput setaf 2)512$(tput sgr0)','$(tput setaf 2)1024$(tput sgr0)''$(tput setaf 2)32M$(tput sgr0)'"
 echo
 echo "Example:"
@@ -158,9 +161,6 @@ if [ ! -z "$board_mem_flag" ] ; then
     elif [ "$board_mem_flag" == "32" ] ; then
         BOARD_MEM="0x7DFF"
         echo "Board mem size   :    $board_mem_flag Kb, $BOARD_MEM (hex)"
-    elif [ "$board_mem_flag" == "64" ] ; then
-        BOARD_MEM="0xFFFF"
-        echo "Board mem size   :    $board_mem_flag Kb, $BOARD_MEM (hex)"
     else
         failures 7
     fi
@@ -170,9 +170,8 @@ fi
 #Start: Check if new build is selected
 if [ "$new_build_flag" == "1" ]; then
     check_flag=1
-    update_flag=1
 fi
-if [ "$update_flag" == "1" ]; then
+if [[ "$update_flag" == "1" || "$update_flag" == "2" ]]; then
     check_flag=1
 fi
 #End: Check if new build is selected
@@ -196,11 +195,13 @@ if [ ! -z $firmware_version_flag ]; then
     if [ ! -z $MK404_PRINTER_TEMP ]; then
         MK404_PRINTER=MK25S
     fi
+elif [[ ! -z $new_build_flag || ! -z $update_flag || ! -z $check_flag ]]; then
+        echo "continue"
 else
     failures 8
 fi
 
-if [ -z "$MK404_PRINTER" ]; then
+if [[ -z $MK404_PRINTER && -z $new_build_flag && -z $update_flag && -z $check_flag ]]; then
     failures 9
 fi
 
@@ -232,7 +233,7 @@ if [ ! -z $mk404_printer_flag ]; then
     fi
 fi
 
-if [ -z $MK404_PRINTER ]; then
+if [[ -z $MK404_PRINTER && -z $new_build_flag && -z $update_flag && -z $check_flag ]]; then
     failures 10
 fi
 
@@ -315,7 +316,7 @@ check_packages()
 {
 packages=(
 "libelf-dev"
-"gcc-7"
+"gcc"
 "gcc-avr"
 "libglew-dev"
 "freeglut3-dev"
@@ -399,34 +400,54 @@ if [ "$check_flag" == "1" ]; then
 # Get latest release
     MK404_release_url=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/$MK404_owner/$MK404_project/releases/latest)
     MK404_release_tag=$(basename $MK404_release_url)
-# Get remote Commit_Hash
-    #MK404_remote_GIT_COMMIT_HASH=$(git ls-remote --heads $(git config --get remote.origin.url) | grep "refs/heads/master" | cut -f 1)
-    MK404_remote_GIT_COMMIT_HASH=$(git ls-remote | grep "refs/tags/$MK404_release_tag"  | cut -f 1)
-# Get remote Commit_Number
-    MK404_remote_GIT_COMMIT_NUMBER=$(git rev-list $MK404_release_tag --count)
+# Get release Commit_Hash
+    MK404_release_GIT_COMMIT_HASH=$(git ls-remote | grep "refs/tags/$MK404_release_tag"  | cut -f 1)
+# Get release Commit_Number
+    MK404_release_GIT_COMMIT_NUMBER=$(git rev-list $MK404_release_tag --count)
+# Get latest development Commit_Hash
+    MK404_devel_GIT_COMMIT_HASH=$(git for-each-ref refs/remotes/origin/master | cut -d" " -f 1)
+# Get latest development Commit_Number
+    MK404_devel_GIT_COMMIT_NUMBER=$(git rev-list refs/remotes/origin/master --count)
 # Output
     echo ""
     echo "Current version         : $MK404_current_version"
     echo ""
     echo "Current local hash      : $MK404_local_GIT_COMMIT_HASH"
     echo "Current local commit nr : $MK404_local_GIT_COMMIT_NUMBER"
-    if [ "$MK404_local_GIT_COMMIT_HASH" != "$MK404_remote_GIT_COMMIT_HASH" ]; then
+    if [ "$MK404_local_GIT_COMMIT_HASH" != "$MK404_release_GIT_COMMIT_HASH" ]; then
         echo "$(tput setaf 1)"
     else
         echo "$(tput setaf 2)"
     fi
     echo "Latest release tag      : $MK404_release_tag"
-    echo "Latest release hash     : $MK404_remote_GIT_COMMIT_HASH"
-    echo "Latest remote commit nr : $MK404_remote_GIT_COMMIT_NUMBER"
+    echo "Latest release hash     : $MK404_release_GIT_COMMIT_HASH"
+    echo "Latest release commit nr: $MK404_release_GIT_COMMIT_NUMBER"
+    if [ "$MK404_local_GIT_COMMIT_HASH" != "$MK404_devel_GIT_COMMIT_HASH" ]; then
+        echo "$(tput setaf 1)"
+    else
+        echo "$(tput setaf 2)"
+    fi
+    echo "Latest devel hash       : $MK404_devel_GIT_COMMIT_HASH"
+    echo "Latest devel commit nr  : $MK404_devel_GIT_COMMIT_NUMBER"
     echo "$(tput sgr 0)"
 
 # Check for updates
-    if [ ! -z $MK404_remote_GIT_COMMIT_HASH ]; then
-        if [[ "$MK404_local_GIT_COMMIT_HASH" != "$MK404_remote_GIT_COMMIT_HASH" && -z "$update_flag" ]]; then
-            echo "$(tput setaf 2)Update is availible.$(tput sgr 0)"
-            read -t 10 -n 1 -p "$(tput setaf 3)Update now Y/n$(tput sgr 0)" update_answer
-            if [ "$update_answer" == "Y" ]; then
+    if [ ! -z $MK404_release_GIT_COMMIT_HASH ]; then
+        if [[ "$MK404_local_GIT_COMMIT_HASH" != "$MK404_release_GIT_COMMIT_HASH" && -z "$update_flag" ]]; then
+            echo "$(tput setaf 2)Update to release is availible.$(tput sgr 0)"
+            read -t 10 -n 1 -p "$(tput setaf 3)Update to release now Y/n$(tput sgr 0)" update_answer
+            if [[ "$update_answer" == "Y" || "$update_answer" == "y" ]]; then
                 update_flag=1
+            fi
+            echo ""
+        fi
+    fi
+    if [ ! -z $MK404_devel_GIT_COMMIT_HASH ]; then
+        if [[ "$MK404_local_GIT_COMMIT_HASH" != "$MK404_devel_GIT_COMMIT_HASH" && -z "$update_flag" ]]; then
+            echo "$(tput setaf 2)Update to devel is availible.$(tput sgr 0)"
+            read -t 10 -n 1 -p "$(tput setaf 3)Update to devel now Y/n$(tput sgr 0)" update_answer
+            if [[ "$update_answer" == "Y" || "$update_answer" == "y" ]]; then
+                update_flag=2
             fi
             echo ""
         fi
@@ -439,14 +460,27 @@ fi
 fetch_updates()
 {
 if [ "$update_flag" == "1" ]; then
-    if [ ! -z $MK404_remote_GIT_COMMIT_HASH ]; then
-        if [ "$MK404_local_GIT_COMMIT_HASH" != "$MK404_remote_GIT_COMMIT_HASH" ]; then
+    if [ ! -z $MK404_release_GIT_COMMIT_HASH ]; then
+        if [ "$MK404_local_GIT_COMMIT_HASH" != "$MK404_release_GIT_COMMIT_HASH" ]; then
             echo ""
             git fetch --all
-            read -t 10 -p "$(tput setaf 2)Updating MK404 !$(tput sgr 0)"
+            read -t 5 -p "$(tput setaf 2)Updating MK404 to release!$(tput sgr 0)"
             echo ""
             git reset --hard $MK404_release_tag
-            read -t 10 -p "$(tput setaf 2)Compiling MK404 !$(tput sgr 0)"
+            read -t 5 -p "$(tput setaf 2)Compiling MK404 release!$(tput sgr 0)"
+            echo ""
+            new_build_flag=1
+        fi
+    fi
+elif [ "$update_flag" == "2" ]; then
+    if [ ! -z $MK404_devel_GIT_COMMIT_HASH ]; then
+        if [ "$MK404_local_GIT_COMMIT_HASH" != "$MK404_devel_GIT_COMMIT_HASH" ]; then
+            echo ""
+            git fetch --all
+            read -t 5 -p "$(tput setaf 2)Updating MK404 to devel!$(tput sgr 0)"
+            echo ""
+            git reset --hard origin/master
+            read -t 5 -p "$(tput setaf 2)Compiling MK404 devel!$(tput sgr 0)"
             echo ""
             new_build_flag=1
         fi
