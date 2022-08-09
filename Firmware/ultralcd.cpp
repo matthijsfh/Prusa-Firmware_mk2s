@@ -1402,7 +1402,7 @@ static void lcd_menu_temperatures()
     lcd_menu_temperatures_line( _i("Ambient"), (int)current_temperature_ambient );  ////MSG_AMBIENT c=14
 #endif //AMBIENT_THERMISTOR
 #ifdef PINDA_THERMISTOR
-    lcd_menu_temperatures_line( _T(MSG_PINDA), (int)current_temperature_pinda );  ////MSG_PINDA
+    lcd_menu_temperatures_line(MSG_PINDA, (int)current_temperature_pinda );  ////MSG_PINDA
 #endif //PINDA_THERMISTOR
     menu_back_if_clicked();
 }
@@ -3472,7 +3472,7 @@ static void lcd_show_sensors_state()
 	{
 		finda_state = MMU2::mmu2.FindaDetectsFilament();
 	}
-	lcd_puts_at_P(0, 0, _T(MSG_PINDA));
+	lcd_puts_at_P(0, 0, MSG_PINDA);
 	lcd_set_cursor(LCD_WIDTH - 14, 0);
 	lcd_print_state(pinda_state);
 	
@@ -4610,12 +4610,12 @@ static void settingsAutoDeplete()
     {
 #ifdef FILAMENT_SENSOR
         if (fsensor.isError()) {
-            MENU_ITEM_TOGGLE_P(_T(MSG_AUTO_DEPLETE), _T(MSG_NA), fsensor_reinit);
+            MENU_ITEM_TOGGLE_P(MSG_AUTO_DEPLETE, _T(MSG_NA), fsensor_reinit);
         }
         else
 #endif //FILAMENT_SENSOR
         {
-            MENU_ITEM_TOGGLE_P(_T(MSG_AUTO_DEPLETE), lcd_autoDeplete ? _T(MSG_ON) : _T(MSG_OFF), auto_deplete_switch);
+            MENU_ITEM_TOGGLE_P(MSG_AUTO_DEPLETE, lcd_autoDeplete ? _T(MSG_ON) : _T(MSG_OFF), auto_deplete_switch);
         }
     }
 }
@@ -4745,7 +4745,7 @@ while (0)
 do\
 {\
     if (card.ToshibaFlashAir_isEnabled())\
-        MENU_ITEM_TOGGLE_P(_T(MSG_SD_CARD), _T(MSG_TOSHIBA_FLASH_AIR_COMPATIBILITY), lcd_toshiba_flash_air_compatibility_toggle);\
+        MENU_ITEM_TOGGLE_P(_T(MSG_SD_CARD), MSG_TOSHIBA_FLASH_AIR_COMPATIBILITY, lcd_toshiba_flash_air_compatibility_toggle);\
     else\
         MENU_ITEM_TOGGLE_P(_T(MSG_SD_CARD), _T(MSG_NORMAL), lcd_toshiba_flash_air_compatibility_toggle);\
 \
@@ -4764,7 +4764,7 @@ while (0)
 do\
 {\
     if (card.ToshibaFlashAir_isEnabled())\
-        MENU_ITEM_TOGGLE_P(_T(MSG_SD_CARD), _T(MSG_TOSHIBA_FLASH_AIR_COMPATIBILITY), lcd_toshiba_flash_air_compatibility_toggle);\
+        MENU_ITEM_TOGGLE_P(_T(MSG_SD_CARD), MSG_TOSHIBA_FLASH_AIR_COMPATIBILITY, lcd_toshiba_flash_air_compatibility_toggle);\
     else\
         MENU_ITEM_TOGGLE_P(_T(MSG_SD_CARD), _T(MSG_NORMAL), lcd_toshiba_flash_air_compatibility_toggle);\
 }\
@@ -4964,16 +4964,16 @@ do\
     switch(oCheckVersion)\
          {\
          case ClCheckVersion::_None:\
-              MENU_ITEM_TOGGLE_P(_T(MSG_FIRMWARE), _T(MSG_NONE), lcd_check_version_set);\
+              MENU_ITEM_TOGGLE_P(MSG_FIRMWARE, _T(MSG_NONE), lcd_check_version_set);\
               break;\
          case ClCheckVersion::_Warn:\
-              MENU_ITEM_TOGGLE_P(_T(MSG_FIRMWARE), _T(MSG_WARN), lcd_check_version_set);\
+              MENU_ITEM_TOGGLE_P(MSG_FIRMWARE, _T(MSG_WARN), lcd_check_version_set);\
               break;\
          case ClCheckVersion::_Strict:\
-              MENU_ITEM_TOGGLE_P(_T(MSG_FIRMWARE), _T(MSG_STRICT), lcd_check_version_set);\
+              MENU_ITEM_TOGGLE_P(MSG_FIRMWARE, _T(MSG_STRICT), lcd_check_version_set);\
               break;\
          default:\
-              MENU_ITEM_TOGGLE_P(_T(MSG_FIRMWARE), _T(MSG_NONE), lcd_check_version_set);\
+              MENU_ITEM_TOGGLE_P(MSG_FIRMWARE, _T(MSG_NONE), lcd_check_version_set);\
          }\
 }\
 while (0)
