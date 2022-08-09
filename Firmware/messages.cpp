@@ -110,8 +110,8 @@ const char MSG_STOP_PRINT[] PROGMEM_I1 = ISTR("Stop print"); ////MSG_STOP_PRINT 
 const char MSG_STOPPED[] PROGMEM_I1 = ISTR("STOPPED."); ////MSG_STOPPED c=20
 const char MSG_PINDA_CALIBRATION[] PROGMEM_I1 = ISTR("PINDA cal."); ////MSG_PINDA_CALIBRATION c=13
 const char MSG_PINDA_CALIBRATION_DONE[] PROGMEM_I1 = ISTR("PINDA calibration is finished and active. It can be disabled in menu Settings->PINDA cal."); ////MSG_PINDA_CALIBRATION_DONE c=20 r=8
-const char MSG_UNLOAD_FILAMENT[] PROGMEM_I1 = ISTR("Unload filament"); ////Number 1 to 5 is added behind text e.g. "Unload filament" c=16
-const char MSG_UNLOADING_FILAMENT[] PROGMEM_I1 = ISTR("Unloading filament"); ////c=20
+const char MSG_UNLOAD_FILAMENT[] PROGMEM_I1 = ISTR("Unload filament"); ////MSG_UNLOAD_FILAMENT c=16
+const char MSG_UNLOADING_FILAMENT[] PROGMEM_I1 = ISTR("Unloading filament"); ////MSG_UNLOADING_FILAMENT c=20
 const char MSG_INFO_SCREEN[] PROGMEM_I1 = ISTR("Info screen"); ////MSG_INFO_SCREEN c=18
 const char MSG_WIZARD_CALIBRATION_FAILED[] PROGMEM_I1 = ISTR("Please check our handbook and fix the problem. Then resume the Wizard by rebooting the printer."); ////MSG_WIZARD_CALIBRATION_FAILED c=20 r=8
 const char MSG_WIZARD_DONE[] PROGMEM_I1 = ISTR("All is done. Happy printing!"); ////MSG_WIZARD_DONE c=20 r=3
@@ -157,13 +157,12 @@ const char MSG_TIMEOUT[] PROGMEM_I1 = ISTR("Timeout"); ////MSG_TIMEOUT c=12
 const char MSG_BRIGHT[] PROGMEM_I1 = ISTR("Bright"); ////MSG_BRIGHT c=6
 const char MSG_DIM[] PROGMEM_I1 = ISTR("Dim"); ////MSG_DIM c=6
 const char MSG_AUTO[] PROGMEM_I1 = ISTR("Auto"); ////MSG_AUTO c=6
-const char MSG_FS_V_03_OR_OLDER[] PROGMEM_I1 = ISTR("FS v0.3 or older"); ////MSG_FS_V_03_OR_OLDER c=18
-const char MSG_FS_V_04_OR_NEWER[] PROGMEM_I1 = ISTR("FS v0.4 or newer"); ////MSG_FS_V_04_OR_NEWER c=18
 // Beware - the space at the beginning is necessary since it is reused in LCD menu items which are to be with a space
-const char MSG_IR_04_OR_NEWER[] PROGMEM_I1 = ISTR(" 0.4 or newer");////c=18
-const char MSG_IR_03_OR_OLDER[] PROGMEM_I1 = ISTR(" 0.3 or older");////c=18
-const char MSG_IR_UNKNOWN[] PROGMEM_I1 = ISTR("unknown state");////c=18
-
+#if (FILAMENT_SENSOR_TYPE == FSENSOR_IR_ANALOG)
+const char MSG_IR_04_OR_NEWER[] PROGMEM_I1 = ISTR(" 0.4 or newer");////MSG_IR_04_OR_NEWER c=18
+const char MSG_IR_03_OR_OLDER[] PROGMEM_I1 = ISTR(" 0.3 or older");////MSG_IR_03_OR_OLDER c=18
+const char MSG_IR_UNKNOWN[] PROGMEM_I1 = ISTR("unknown state");////MSG_IR_UNKNOWN c=18
+#endif // (FILAMENT_SENSOR_TYPE == FSENSOR_IR_ANALOG)
 //not internationalized messages
 const char MSG_AUTO_DEPLETE[] PROGMEM_N1 = ISTR("SpoolJoin"); ////MSG_AUTO_DEPLETE c=13
 const char MSG_FIRMWARE[] PROGMEM_N1 = ISTR("Firmware"); ////MSG_FIRMWARE c=8
