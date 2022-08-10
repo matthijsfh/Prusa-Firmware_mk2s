@@ -168,6 +168,7 @@ extern const char MSG_IR_04_OR_NEWER[];
 extern const char MSG_IR_03_OR_OLDER[];
 extern const char MSG_IR_UNKNOWN[];
 #endif //(FILAMENT_SENSOR_TYPE == FSENSOR_IR_ANALOG)
+extern const char MSG_SORTING_FILES[];
 
 //not internationalized messages
 extern const char MSG_AUTO_DEPLETE[];

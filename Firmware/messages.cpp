@@ -159,10 +159,11 @@ const char MSG_DIM[] PROGMEM_I1 = ISTR("Dim"); ////MSG_DIM c=6
 const char MSG_AUTO[] PROGMEM_I1 = ISTR("Auto"); ////MSG_AUTO c=6
 // Beware - the space at the beginning is necessary since it is reused in LCD menu items which are to be with a space
 #if (FILAMENT_SENSOR_TYPE == FSENSOR_IR_ANALOG)
-const char MSG_IR_04_OR_NEWER[] PROGMEM_I1 = ISTR(" 0.4 or newer");////MSG_IR_04_OR_NEWER c=18
-const char MSG_IR_03_OR_OLDER[] PROGMEM_I1 = ISTR(" 0.3 or older");////MSG_IR_03_OR_OLDER c=18
-const char MSG_IR_UNKNOWN[] PROGMEM_I1 = ISTR("unknown state");////MSG_IR_UNKNOWN c=18
+const char MSG_IR_04_OR_NEWER[] PROGMEM_I1 = ISTR(" 0.4 or newer"); ////MSG_IR_04_OR_NEWER c=18
+const char MSG_IR_03_OR_OLDER[] PROGMEM_I1 = ISTR(" 0.3 or older"); ////MSG_IR_03_OR_OLDER c=18
+const char MSG_IR_UNKNOWN[] PROGMEM_I1 = ISTR("unknown state"); ////MSG_IR_UNKNOWN c=18
 #endif // (FILAMENT_SENSOR_TYPE == FSENSOR_IR_ANALOG)
+const char MSG_SORTING_FILES[] PROGMEM_I1 = ISTR("Sorting files"); ////MSG_SORTING_FILES c=20
 //not internationalized messages
 const char MSG_AUTO_DEPLETE[] PROGMEM_N1 = "SpoolJoin"; ////MSG_AUTO_DEPLETE c=13
 const char MSG_FIRMWARE[] PROGMEM_N1 = "Firmware"; ////MSG_FIRMWARE c=8
