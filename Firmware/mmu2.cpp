@@ -579,7 +579,8 @@ void MMU2::ResumeHotendTemp() {
         SERIAL_ECHOLN(resume_hotend_temp);
         mmu_print_saved &= ~(SavedState::Cooldown);
         setTargetHotend(resume_hotend_temp, active_extruder);
-        lcd_display_message_fullscreen_P(_i("MMU Retry: Restoring temperature...")); // better report the event and let the GUI do its work somewhere else
+        lcd_display_message_fullscreen_P(_i("MMU Retry: Restoring temperature...")); ////MSG_MMU_RESTORE_TEMP c=20 r=4
+        // better report the event and let the GUI do its work somewhere else
         ReportErrorHookSensorLineRender();
         waitForHotendTargetTemp(1000, []{
             ReportErrorHookDynamicRender();
@@ -813,7 +814,7 @@ void MMU2::ReportError(ErrorCode ec, uint8_t res) {
     if( ec != lastErrorCode ){ // deduplicate: only report changes in error codes into the log
         lastErrorCode = ec;
         SERIAL_ECHO_START;
-        SERIAL_ECHOLNRPGM( _T(PrusaErrorTitle(PrusaErrorCodeIndex((uint16_t)ec))) );
+        SERIAL_ECHOLNRPGM( _O(PrusaErrorTitle(PrusaErrorCodeIndex((uint16_t)ec))) );
     }
 
     static_assert(mmu2Magic[0] == 'M' 
