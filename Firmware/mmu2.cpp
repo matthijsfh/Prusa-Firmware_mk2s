@@ -830,7 +830,7 @@ void MMU2::ReportProgress(ProgressCode pc) {
     ReportProgressHook((CommandInProgress)logic.CommandInProgress(), (uint16_t)pc);
 
     SERIAL_ECHO_START;
-    SERIAL_ECHOLNRPGM( _T(ProgressCodeToText((uint16_t)pc)) );
+    SERIAL_ECHOLNRPGM( _O(ProgressCodeToText((uint16_t)pc)) );
 }
 
 void MMU2::OnMMUProgressMsg(ProgressCode pc){
