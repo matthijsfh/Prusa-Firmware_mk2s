@@ -37,10 +37,10 @@ const char MSG_FILAMENT_CLEAN[] PROGMEM_I1 = ISTR("Filament extruding & with cor
 const char MSG_FILAMENT_LOADED[] PROGMEM_I1 = ISTR("Is filament loaded?"); ////MSG_FILAMENT_LOADED c=20 r=2
 const char MSG_FILAMENTCHANGE[] PROGMEM_I1 = ISTR("Change filament"); ////MSG_FILAMENTCHANGE c=18
 const char MSG_FIND_BED_OFFSET_AND_SKEW_LINE1[] PROGMEM_I1 = ISTR("Searching bed calibration point"); ////MSG_FIND_BED_OFFSET_AND_SKEW_LINE1 c=20 r=3
-const char MSG_FINISHING_MOVEMENTS[] PROGMEM_I1 = ISTR("Finishing movements"); ////MSG_FINISHING_MOVEMENTS c=20
+const char MSG_FINISHING_MOVES[] PROGMEM_I1 = ISTR("Finishing moves"); ////MSG_FINISHING_MOVES c=20
 const char MSG_FOLLOW_CALIBRATION_FLOW[] PROGMEM_I1 = ISTR("Printer has not been calibrated yet. Please follow the manual, chapter First steps, section Calibration flow."); ////MSG_FOLLOW_CALIBRATION_FLOW c=20 r=8
 const char MSG_FOLLOW_Z_CALIBRATION_FLOW[] PROGMEM_I1 = ISTR("There is still a need to make Z calibration. Please follow the manual, chapter First steps, section Calibration flow."); ////MSG_FOLLOW_Z_CALIBRATION_FLOW c=20 r=9
-const char MSG_FSENSOR_RUNOUT[] PROGMEM_I1 = ISTR("F. runout"); ////MSG_FSENSOR_RUNOUT c=13
+const char MSG_FSENSOR_RUNOUT[] PROGMEM_I1 = ISTR("Fil. runout"); ////MSG_FSENSOR_RUNOUT c=13
 const char MSG_FSENSOR_AUTOLOAD[] PROGMEM_I1 = ISTR("F. autoload"); ////MSG_FSENSOR_AUTOLOAD c=13
 const char MSG_FSENSOR_JAM_DETECTION[] PROGMEM_I1 = ISTR("F. jam detect"); ////MSG_FSENSOR_JAM_DETECTION c=13
 const char MSG_FSENSOR[] PROGMEM_I1 = ISTR("Fil. sensor"); ////MSG_FSENSOR c=12
@@ -164,6 +164,7 @@ const char MSG_IR_03_OR_OLDER[] PROGMEM_I1 = ISTR(" 0.3 or older"); ////MSG_IR_0
 const char MSG_IR_UNKNOWN[] PROGMEM_I1 = ISTR("unknown state"); ////MSG_IR_UNKNOWN c=18
 #endif // (FILAMENT_SENSOR_TYPE == FSENSOR_IR_ANALOG)
 const char MSG_SORTING_FILES[] PROGMEM_I1 = ISTR("Sorting files"); ////MSG_SORTING_FILES c=20
+const char MSG_ALWAYS[] PROGMEM_I1 = ISTR("Always"); ////MSG_ALWAYS c=6
 //not internationalized messages
 const char MSG_AUTO_DEPLETE[] PROGMEM_N1 = "SpoolJoin"; ////MSG_AUTO_DEPLETE c=13
 const char MSG_FIRMWARE[] PROGMEM_N1 = "Firmware"; ////MSG_FIRMWARE c=8

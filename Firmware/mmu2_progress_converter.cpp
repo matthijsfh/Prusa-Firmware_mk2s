@@ -14,8 +14,7 @@ static const char MSG_PROGRESS_FEED_FINDA[] PROGMEM_I1       = ISTR("Feeding to 
 static const char MSG_PROGRESS_FEED_EXTRUDER[] PROGMEM_I1    = ISTR("Feeding to extruder"); ////MSG_PROGRESS_FEED_EXTRUDER c=20
 static const char MSG_PROGRESS_FEED_NOZZLE[] PROGMEM_I1      = ISTR("Feeding to nozzle"); ////MSG_PROGRESS_FEED_NOZZLE c=20
 static const char MSG_PROGRESS_AVOID_GRIND[] PROGMEM_I1      = ISTR("Avoiding grind"); ////MSG_PROGRESS_AVOID_GRIND c=20
-static const char MSG_PROGRESS_FINISH_MOVES[] PROGMEM_I1     = ISTR("Finishing moves"); ////MSG_PROGRESS_FINISH_MOVES c=20 //@@tdo duplicate
-static const char MSG_PROGRESS_WAIT_USER[] PROGMEM_I1        = ISTR("qERR Wait for User"); ////MSG_PROGRESS_WAIT_USER c=20
+static const char MSG_PROGRESS_WAIT_USER[] PROGMEM_I1        = ISTR("ERR Wait for User"); ////MSG_PROGRESS_WAIT_USER c=20
 static const char MSG_PROGRESS_ERR_INTERNAL[] PROGMEM_I1     = ISTR("ERR Internal"); ////MSG_PROGRESS_ERR_INTERNAL c=20
 static const char MSG_PROGRESS_ERR_HELP_FIL[] PROGMEM_I1     = ISTR("ERR Help filament"); ////MSG_PROGRESS_ERR_HELP_FIL c=20
 static const char MSG_PROGRESS_ERR_TMC[] PROGMEM_I1          = ISTR("ERR TMC failed"); ////MSG_PROGRESS_ERR_TMC c=20
@@ -41,7 +40,7 @@ static const char * const progressTexts[] PROGMEM = {
     _R(MSG_PROGRESS_FEED_EXTRUDER),
     _R(MSG_PROGRESS_FEED_NOZZLE),
     _R(MSG_PROGRESS_AVOID_GRIND),
-    _R(MSG_PROGRESS_FINISH_MOVES),
+    _R(MSG_FINISHING_MOVES), //reuse from messages.cpp
     _R(MSG_PROGRESS_DISENGAGE_IDLER), // err disengaging idler is the same text
     _R(MSG_PROGRESS_ENGAGE_IDLER), // engage dtto.
     _R(MSG_PROGRESS_WAIT_USER),

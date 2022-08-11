@@ -43,7 +43,7 @@ extern const char MSG_FILAMENT_CLEAN[];
 extern const char MSG_FILAMENT_LOADED[];
 extern const char MSG_FILAMENTCHANGE[];
 extern const char MSG_FIND_BED_OFFSET_AND_SKEW_LINE1[];
-extern const char MSG_FINISHING_MOVEMENTS[];
+extern const char MSG_FINISHING_MOVES[];
 extern const char MSG_FOLLOW_CALIBRATION_FLOW[];
 extern const char MSG_FOLLOW_Z_CALIBRATION_FLOW[];
 extern const char MSG_FSENSOR_RUNOUT[];
@@ -169,6 +169,7 @@ extern const char MSG_IR_03_OR_OLDER[];
 extern const char MSG_IR_UNKNOWN[];
 #endif //(FILAMENT_SENSOR_TYPE == FSENSOR_IR_ANALOG)
 extern const char MSG_SORTING_FILES[];
+extern const char MSG_ALWAYS[];
 
 //not internationalized messages
 extern const char MSG_AUTO_DEPLETE[];
