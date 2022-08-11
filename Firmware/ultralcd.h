@@ -182,7 +182,7 @@ enum class FilamentAction : uint_least8_t
     MmuUnLoad,
     MmuEject,
     MmuCut,
-    MmuLoadBondtech,
+    MmuLoadExtruder,
     Preheat,
     Lay1Cal,
 };

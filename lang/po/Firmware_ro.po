@@ -1039,9 +1039,9 @@ msgstr "Incarcati toate"
 msgid "Load filament"
 msgstr "Incarca filament"
 
-#. MSG_LOAD_TO_BONDTECH c=18
+#. MSG_LOAD_TO_EXTRUDER c=18
 #: ../../Firmware/messages.cpp:56 ../../Firmware/ultralcd.cpp:5888
-msgid "Load to Bondtech"
+msgid "Load to extruder"
 msgstr ""
 
 #. MSG_LOAD_TO_NOZZLE c=18

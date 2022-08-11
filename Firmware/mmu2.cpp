@@ -393,7 +393,7 @@ void FullScreenMsg(const char *pgmS, uint8_t slot){
     lcd_print(slot + 1);
 }
 
-bool MMU2::load_to_bondtech(uint8_t index){
+bool MMU2::load_to_extruder(uint8_t index){
     FullScreenMsg(_T(MSG_TESTING_FILAMENT), index);
     tool_change(index);
     st_synchronize();
@@ -800,7 +800,7 @@ void MMU2::ReportError(ErrorCode ec, uint8_t res) {
     case ProgressCode::UnloadingToFinda:
         unloadFilamentStarted = false;
         break;
-    case ProgressCode::FeedingToBondtech:
+    case ProgressCode::FeedingToExtruder:
     case ProgressCode::FeedingToFSensor:
         // FSENSOR error during load. Make sure E-motor stops moving.
         loadFilamentStarted = false;
@@ -864,7 +864,7 @@ void MMU2::OnMMUProgressMsg(ProgressCode pc){
             current_position[E_AXIS] -= MMU2_RETRY_UNLOAD_TO_FINDA_BOWDEN_LENGTH; // Roughly same distance as MMU plans
             plan_buffer_line_curposXYZE(MMU2_UNLOAD_TO_FINDA_FEED_RATE);
             break;
-        case ProgressCode::FeedingToBondtech:
+        case ProgressCode::FeedingToExtruder:
             // prepare for the movement of the E-motor
             st_synchronize();
             loadFilamentStarted = true;
@@ -882,7 +882,7 @@ void MMU2::OnMMUProgressMsg(ProgressCode pc){
                 if (mmu2.FindaDetectsFilament() == 1)
                 {
                     // We cannot rely on the FSENSOR reading to stop the E-motor
-                    // because the filament can get stuck in the bondtech gears.
+                    // because the filament can get stuck in the extruder gears.
                     // Use FINDA instead.
                     current_position[E_AXIS] -= MMU2_RETRY_UNLOAD_TO_FINDA_FINE_STEP_LENGTH;
                     plan_buffer_line_curposXYZE(MMU2_RETRY_UNLOAD_TO_FINDA_FINE_STEP_FEED_RATE);
@@ -891,12 +891,12 @@ void MMU2::OnMMUProgressMsg(ProgressCode pc){
                 }
             }
             break;
-        case ProgressCode::FeedingToBondtech:
+        case ProgressCode::FeedingToExtruder:
         case ProgressCode::FeedingToFSensor:
             if (loadFilamentStarted) {
                 switch (WhereIsFilament()) {
                 case FilamentState::AT_FSENSOR:
-                    // fsensor triggered, finish FeedingToBondtech state
+                    // fsensor triggered, finish FeedingToExtruder state
                     loadFilamentStarted = false;
                     // After the MMU knows the FSENSOR is triggered it will:
                     // 1. Push the filament by additional 30mm (see fsensorToNozzle)
